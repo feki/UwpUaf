@@ -140,6 +140,7 @@
     <Compile Include="Messages\Policy.cs" />
     <Compile Include="Messages\RegistrationRequest.cs" />
     <Compile Include="Messages\RegistrationResponse.cs" />
+    <Compile Include="Messages\RgbPalletteEntry.cs" />
     <Compile Include="Tlv\TagTypes.cs" />
     <Compile Include="Messages\Transaction.cs" />
     <Compile Include="Messages\Version.cs" />

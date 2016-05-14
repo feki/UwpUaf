@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// Contains the authenticator's response to a RegistrationRequest message.
@@ -12,6 +14,7 @@
         /// <note>
         /// This AssertionScheme is not part of a signed object and hence considered the suspected AssertionScheme.
         /// </note>
+        [JsonProperty("assertionScheme", Required = Required.Always)]
         public string AssertionScheme { get; set; }
 
         /// <summary>
@@ -25,17 +28,20 @@
         /// from one assertion scheme to another (e.g. for "UAFV1TLV" assertion scheme
         /// it MUST be `TAG_UAFV1_KRD`).
         /// </summary>
+        [JsonProperty("assertion", Required = Required.Always)]
         public string Assertion { get; set; }
 
         /// <summary>
         /// Supported transaction PNG type [UAFAuthnrMetadata](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-metadata-v1.0-ps-20141208.html).
         /// For the definition of the DisplayPngCharacteristicsDescriptor structure See [UAFAuthnrMetadata](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-metadata-v1.0-ps-20141208.html).
         /// </summary>
+        [JsonProperty("tcDisplayPNGCharacteristics")]
         public DisplayPngCharacteristicsDescriptor[] TcDisplayPngCharacteristics { get; set; }
 
         /// <summary>
         /// Contains Extensions prepared by the authenticator.
         /// </summary>
+        [JsonProperty("exts")]
         public Extension[] Exts { get; set; }
     }
 }

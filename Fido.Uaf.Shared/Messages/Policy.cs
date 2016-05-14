@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// Contains a specification of accepted authenticators and a specification of disallowed authenticators.
@@ -24,6 +26,7 @@
         /// authenticator options to the user in the same order, or by offering to perform the operation
         /// using only the highest-preference authenticator(s).
         /// </summary>
+        [JsonProperty("accepted", Required = Required.Always)]
         public MatchCriteria[][] Accepted { get; set; }
 
         /// <summary>
@@ -31,6 +34,7 @@
         /// MUST be excluded from eligibility for the operation, regardless of whether it matches
         /// any MatchCriteria present in the Accepted list, or not.
         /// </summary>
+        [JsonProperty("disallowed")]
         public MatchCriteria[] Disallowed { get; set; }
     }
 }

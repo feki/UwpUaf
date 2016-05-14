@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// FIDO extensions can appear in several places, including the UAF protocol messages,
@@ -17,21 +19,14 @@
     /// </summary>
     public class Extension
     {
-        private string id;
-        private string data;
-        private bool failIfUnknown;
-
         /// <summary>
         /// Identifies the extension.
         /// </summary>
         /// <remarks>
         /// string[1..32]
         /// </remarks>
-        public string Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        [JsonProperty("id", Required = Required.Always)]
+        public string Id { get; set; }
 
         /// <summary>
         /// Contains arbitrary data with a semantics agreed between server and client. The data is base64url-encoded.
@@ -39,11 +34,8 @@
         /// <remarks>
         /// This field MAY be empty.
         /// </remarks>
-        public string Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
+        [JsonProperty("data", Required = Required.Always)]
+        public string Data { get; set; }
 
         /// <summary>
         /// Indicates whether unknown extensions must be ignored (`false`) or must lead to an error (`true`).
@@ -78,10 +70,7 @@
         /// that a different finger was used for authentication) the extension must be marked as `fail_if_unknown`
         /// (i.e. tag 0x3E11 must be used [UAFAuthnrCommands](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-cmds-v1.0-ps-20141208.html)). 
         /// </note>
-        public bool FailIfUnknown
-        {
-            get { return failIfUnknown; }
-            set { failIfUnknown = value; }
-        }
+        [JsonProperty("fail_if_unknown", Required = Required.Always)]
+        public bool FailIfUnknown { get; set; }
     }
 }

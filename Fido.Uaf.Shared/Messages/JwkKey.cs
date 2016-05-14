@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// `JwkKey` representing a JSON Web Key encoding of an elliptic curve public key
@@ -15,23 +17,27 @@
         /// is supported by [ChannelID](http://tools.ietf.org/html/draft-balfanz-tls-channelid),
         /// so it MUST be set to "EC" [JWA](http://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms).
         /// </summary>
-        public string kty { get; set; } = "EC";
+        [JsonProperty("kty", Required = Required.Always)]
+        public string Kty { get; set; } = "EC";
 
         /// <summary>
         /// Denotes the elliptic curve on which this public key is defined. At this time only the NIST curve `secp256r1`
         /// is supported by [ChannelID](http://tools.ietf.org/html/draft-balfanz-tls-channelid),
         /// so the `crv` parameter MUST be set to "P-256".
         /// </summary>
-        public string crv { get; set; } = "P-256";
+        [JsonProperty("crv", Required = Required.Always)]
+        public string Crv { get; set; } = "P-256";
 
         /// <summary>
         /// Contains the base64url-encoding of the x coordinate of the public key (big-endian, 32-byte value).
         /// </summary>
+        [JsonProperty("x", Required = Required.Always)]
         public string X { get; set; }
 
         /// <summary>
         /// Contains the base64url-encoding of the y coordinate of the public key (big-endian, 32-byte value).
         /// </summary>
+        [JsonProperty("y", Required = Required.Always)]
         public string Y { get; set; }
     }
 }

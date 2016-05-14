@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// RegistrationRequest contains a single, versioned, registration request.
@@ -8,11 +10,13 @@
         /// <summary>
         /// It must be Operation.Reg
         /// </summary>
+        [JsonProperty("header", Required = Required.Always)]
         public OperationHeader Header { get; set; }
 
         /// <summary>
         /// Server-provided challenge value.
         /// </summary>
+        [JsonProperty("challenge", Required = Required.Always)]
         public string Challenge { get; set; }
 
         /// <summary>
@@ -22,11 +26,13 @@
         /// <remarks>
         /// string[1..128]
         /// </remarks>
+        [JsonProperty("username", Required = Required.Always)]
         public string Username { get; set; }
 
         /// <summary>
         /// Describes which types of authenticators are acceptable for this registration operation.
         /// </summary>
+        [JsonProperty("policy", Required = Required.Always)]
         public Policy Policy { get; set; }
     }
 }

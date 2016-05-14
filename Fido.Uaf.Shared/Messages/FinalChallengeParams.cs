@@ -1,35 +1,26 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// 
     /// </summary>
     public class FinalChallengeParams
     {
-        private string appId;
-        private string challenge;
-        private string facetId;
-        private ChannelBinding channelBinding;
-
         /// <summary>
         /// The value MUST be taken from the `AppId` field of the `OperationHeader`.
         /// </summary>
         /// <remarks>
         /// string[1..512]
         /// </remarks>
-        public string AppId
-        {
-            get { return appId; }
-            set { appId = value; }
-        }
+        [JsonProperty("appID", Required = Required.Always)]
+        public string AppId { get; set; }
 
         /// <summary>
         /// The value MUST be taken from the challenge field of the request (e.g. `RegistrationRequest.challenge`, `AuthenticationRequest.challenge`).
         /// </summary>
-        public string Challenge
-        {
-            get { return challenge; }
-            set { challenge = value; }
-        }
+        [JsonProperty("challenge", Required = Required.Always)]
+        public string Challenge { get; set; }
 
         /// <summary>
         /// The value is determined by the FIDO UAF Client and it depends on the calling application.
@@ -41,20 +32,14 @@
         /// <remarks>
         /// string[1..512]
         /// </remarks>
-        public string FacetId
-        {
-            get { return facetId; }
-            set { facetId = value; }
-        }
+        [JsonProperty("facetID", Required = Required.Always)]
+        public string FacetId { get; set; }
 
         /// <summary>
         /// Contains the TLS information to be sent by the FIDO Client to the FIDO Server,
         /// binding the TLS channel to the FIDO operation. 
         /// </summary>
-        public ChannelBinding ChannelBinding
-        {
-            get { return channelBinding; }
-            set { channelBinding = value; }
-        }
+        [JsonProperty("channelBinding", Required = Required.Always)]
+        public ChannelBinding ChannelBinding { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// Represents the matching criteria to be used in the server policy.
@@ -17,7 +19,8 @@
         /// <note>
         /// This field corresponds to `MetadataStatement.aaid` [UAFAuthnrMetadata](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-metadata-v1.0-ps-20141208.html).
         /// </note>
-        public string[] AAID { get; set; }
+        [JsonProperty("aaid")]
+        public string[] AAIDs { get; set; }
 
         /// <summary>
         /// The VendorIds causing matching to be restricted to authenticator models
@@ -30,6 +33,7 @@
         /// This field corresponds to the first 4 characters of `MetadataStatement.aaid`
         /// [UAFAuthnrMetadata](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-metadata-v1.0-ps-20141208.html).
         /// </note>
+        [JsonProperty("vendorID")]
         public string[] VendorIds { get; set; }
 
         /// <summary>
@@ -41,12 +45,14 @@
         /// <note>
         /// This field corresponds to AppRegistration.keyIDs [UAFASM](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-asm-api-v1.0-ps-20141208.html).
         /// </note>
+        [JsonProperty("keyIDs")]
         public string[] KeyIds { get; set; }
 
         /// <summary>
         /// A set of 32 bit flags which may be set if matching should be restricted by the user
         /// verification method (see [UAFRegistry](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-reg-v1.0-ps-20141208.html)).
         /// </summary>
+        [JsonProperty("userVerification")]
         public ulong UserVerification { get; set; }
 
         /// <summary>
@@ -56,6 +62,7 @@
         /// This match succeeds, if at least one of the bit flags matches the value
         /// of `AuthenticatorInfo.keyProtection` [UAFASM].
         /// </summary>
+        [JsonProperty("keyProtection")]
         public ushort KeyProtection { get; set; }
 
         /// <summary>
@@ -65,6 +72,7 @@
         /// The match succeeds if at least one of the bit flags matches the value
         /// of `AuthenticatorInfo.matcherProtection` [UAFASM].
         /// </summary>
+        [JsonProperty("matcherProtection")]
         public ushort MatcherProtection { get; set; }
 
         /// <summary>
@@ -74,6 +82,7 @@
         /// This field is considered to match, if at least one of the bit flags matches
         /// the value of `AuthenticatorInfo.attachmentHint` [UAFASM].
         /// </summary>
+        [JsonProperty("attachmentHint")]
         public ulong AttachmentHint { get; set; }
 
         /// <summary>
@@ -83,6 +92,7 @@
         /// This match succeeds if at least one of the bit flags matches the value
         /// of `AuthenticatorInfo.tcDisplay` [UAFASM].
         /// </summary>
+        [JsonProperty("tcDisplay")]
         public ushort TcDisplay { get; set; }
 
         /// <summary>
@@ -93,6 +103,7 @@
         /// This match succeeds if at least one entry in this array matches
         /// the `AuthenticatorInfo.authenticationAlgorithm` [UAFASM].
         /// </summary>
+        [JsonProperty("authenticationAlgorithms")]
         public ushort[] AuthenticationAlgorithms { get; set; }
 
         /// <summary>
@@ -104,6 +115,7 @@
         /// This match succeeds if at least one entry in this array matches
         /// `AuthenticatorInfo.assertionScheme` [UAFASM].
         /// </summary>
+        [JsonProperty("assertionSchemes")]
         public string[] AssertionSchemes { get; set; }
 
         /// <summary>
@@ -114,6 +126,7 @@
         /// This match succeeds if at least one entry in this array matches
         /// one entry in `AuthenticatorInfo.attestationTypes` [UAFASM].
         /// </summary>
+        [JsonProperty("attestationTypes")]
         public ushort[] AttestationTypes { get; set; }
 
         /// <summary>
@@ -125,11 +138,13 @@
         /// or `TAG_UAFV1_AUTH_ASSERTION` or a corresponding value
         /// in the case of a different assertion scheme.
         /// </summary>
+        [JsonProperty("authenticatorVersion")]
         public ushort AuthenticatorVersion { get; set; }
 
         /// <summary>
         /// Extensions for matching policy.
         /// </summary>
-        public Extension[] exts { get; set; }
+        [JsonProperty("exts")]
+        public Extension[] Exts { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// 
@@ -8,6 +10,7 @@
         /// <summary>
         /// Header.Op MUST be Operation.Auth.
         /// </summary>
+        [JsonProperty("header", Required = Required.Always)]
         public OperationHeader Header { get; set; }
 
         /// <summary>
@@ -15,11 +18,13 @@
         /// FinalChallengeParams in UTF8 encoding (see [FinalChallengeParams dictionary](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-protocol-v1.0-ps-20141208.html#finalchallenge-dictionary))
         /// which contains all parameters required for the server to verify the Final Challenge.
         /// </summary>
+        [JsonProperty("fcParams", Required = Required.Always)]
         public string FcParams { get; set; }
 
         /// <summary>
         /// The list of authenticator responses related to this operation.
         /// </summary>
+        [JsonProperty("assertions", Required = Required.Always)]
         public AuthenticatorSignAssertion[] Assertions { get; set; }
     }
 }

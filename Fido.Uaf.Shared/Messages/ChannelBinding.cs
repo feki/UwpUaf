@@ -1,15 +1,12 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// ChannelBinding contains channel binding information [RFC5056](http://www.ietf.org/rfc/rfc5056.txt).
     /// </summary>
     public class ChannelBinding
     {
-        private string serverEndPoint;
-        private string tlsServerCertificate;
-        private string tlsUnique;
-        private string cidPubkey;
-
         /// <summary>
         /// The field `serverEndPoint` MUST be set to the base64url-encoded hash
         /// of the TLS server certificate if this is available.The hash function
@@ -31,11 +28,8 @@
         /// the processing entity (e.g., the FIDO UAF Client) or the hash function cannot
         /// be determined as described.
         /// </summary>
-        public string ServerEndPoint
-        {
-            get { return serverEndPoint; }
-            set { serverEndPoint = value; }
-        }
+        [JsonProperty("serverEndPoint")]
+        public string ServerEndPoint { get; set; }
 
         /// <summary>
         /// This field MUST be absent if the TLS server certificate is not available
@@ -45,22 +39,16 @@
         /// certificate, if this data is available to the FIDO UAF Client.
         /// 
         /// </summary>
-        public string TlsServerCertificate
-        {
-            get { return tlsServerCertificate; }
-            set { tlsServerCertificate = value; }
-        }
+        [JsonProperty("tlsServerCertificate")]
+        public string TlsServerCertificate { get; set; }
 
         /// <summary>
         /// MUST be set to the base64url-encoded TLS channel `Finished` structure.
         /// It MUST, however, be absent, if this data is not available to the FIDO UAF Client
         /// [RFC5929](http://www.ietf.org/rfc/rfc5929.txt).
         /// </summary>
-        public string TlsUnique
-        {
-            get { return tlsUnique; }
-            set { tlsUnique = value; }
-        }
+        [JsonProperty("tlsUnique")]
+        public string TlsUnique { get; set; }
 
         /// <summary>
         /// MUST be absent if the client TLS stack doesn't provide TLS ChannelID
@@ -73,10 +61,7 @@
         /// Otherwise, it MUST be set to the base64url-encoded serialized
         /// [RFC4627](https://tools.ietf.org/html/rfc4627) `JwkKey` structure using UTF-8 encoding.
         /// </summary>
-        public string CidPubkey
-        {
-            get { return cidPubkey; }
-            set { cidPubkey = value; }
-        }
+        [JsonProperty("cid_pubkey")]
+        public string CidPubkey { get; set; }
     }
 }

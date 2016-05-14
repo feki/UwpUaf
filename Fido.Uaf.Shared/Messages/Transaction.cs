@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
     /// 
@@ -11,6 +13,7 @@
         /// 
         /// This version of the specification only supports the values `text/plain` or `image/png`.
         /// </summary>
+        [JsonProperty("contentType", Required = Required.Always)]
         public string ContentType { get; set; }
 
         /// <summary>
@@ -23,6 +26,7 @@
         /// <remarks>
         /// base64url(byte[1...])
         /// </remarks>
+        [JsonProperty("content", Required = Required.Always)]
         public string Content { get; set; }
 
         /// <summary>
@@ -31,6 +35,7 @@
         /// See [UAFAuthnrMetadata](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-authnr-metadata-v1.0-ps-20141208.html).
         /// This field MUST be present if the contentType is "image/png".
         /// </summary>
+        [JsonProperty("tcDisplayPNGCharacteristics")]
         public DisplayPngCharacteristicsDescriptor TcDisplayPngCharacteristics { get; set; }
     }
 }

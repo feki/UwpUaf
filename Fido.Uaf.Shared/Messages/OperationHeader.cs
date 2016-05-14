@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Fido.Uaf.Shared.Messages
 {
@@ -7,12 +9,6 @@ namespace Fido.Uaf.Shared.Messages
     /// </summary>
     public class OperationHeader
     {
-        private Version upv;
-        private Operation op;
-        private string appId;
-        private string serverData;
-        private IList<Extension> exts;
-
         /// <summary>
         /// UAF protocol version.
         /// </summary>
@@ -20,11 +16,8 @@ namespace Fido.Uaf.Shared.Messages
         /// For FIDO 1.0 specification:
         /// Major version MUST be `1` and minor version MUST be `0`.
         /// </note>
-        public Version Upv
-        {
-            get { return upv; }
-            set { upv = value; }
-        }
+        [JsonProperty("upv", Required = Required.Always)]
+        public Version Upv { get; set; }
 
         /// <summary>
         /// Name of FIDO operation this message relates to.
@@ -32,11 +25,9 @@ namespace Fido.Uaf.Shared.Messages
         /// <note>
         /// Auth is used for both authentication and transaction confirmation.
         /// </note>
-        public Operation Op
-        {
-            get { return op; }
-            set { op = value; }
-        }
+        [JsonProperty("op", Required = Required.Always)]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Operation Op { get; set; }
 
         /// <summary>
         /// The application identifier that the relying party would like to assert.
@@ -56,11 +47,8 @@ namespace Fido.Uaf.Shared.Messages
         /// 
         /// Security Relevance: The application identifier is used by the FIDO UAF Client to verify the eligibility of an application to trigger the use of a specific `UAuth.Key`. See[FIDOAppIDAndFacets](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-protocol-v1.0-ps-20141208.html#bib-FIDOAppIDAndFacets)
         /// </note>
-        public string AppId
-        {
-            get { return appId; }
-            set { appId = value; }
-        }
+        [JsonProperty("appID")]
+        public string AppId { get; set; }
 
         /// <summary>
         /// A session identifier created by the relying party.
@@ -73,19 +61,13 @@ namespace Fido.Uaf.Shared.Messages
         /// 
         /// Servers that depend on the integrity of `serverData` should apply appropriate security measures, as described in [Registration Request Generation Rules for FIDO Server](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-protocol-v1.0-ps-20141208.html#registration-request-generation-rules-for-fido-server) and section [ServerData and KeyHandle](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-protocol-v1.0-ps-20141208.html#serverdata-and-keyhandle).
         /// </note>
-        public string ServerData
-        {
-            get { return serverData; }
-            set { serverData = value; }
-        }
+        [JsonProperty("serverData")]
+        public string ServerData { get; set; }
 
         /// <summary>
         /// List of UAF Message Extensions.
         /// </summary>
-        public IList<Extension> Exts
-        {
-            get { return exts; }
-            set { exts = value; }
-        }
+        [JsonProperty("exts")]
+        public IList<Extension> Exts { get; set; }
     }
 }
