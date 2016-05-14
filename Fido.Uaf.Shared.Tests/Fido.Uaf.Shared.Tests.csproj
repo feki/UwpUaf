@@ -3,12 +3,12 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{820142E8-C1C6-441D-9E00-A28925679685}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fido.Uaf.Shared</RootNamespace>
-    <AssemblyName>Fido.Uaf.Shared</AssemblyName>
+    <RootNamespace>Fido.Uaf.Shared.Tests</RootNamespace>
+    <AssemblyName>Fido.Uaf.Shared.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -16,28 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <PackageCertificateKeyFile>Fido.Uaf.Shared.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
@@ -46,9 +28,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
@@ -57,9 +39,10 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
-    <PlatformTarget>ARM</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
@@ -68,9 +51,9 @@
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <PlatformTarget>ARM</PlatformTarget>
     <OutputPath>bin\ARM\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
@@ -79,9 +62,10 @@
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
@@ -90,9 +74,9 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
@@ -101,57 +85,58 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
     <None Include="project.json" />
+    <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
+    <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Messages\Asm\AsmRequest.cs" />
-    <Compile Include="Messages\Asm\AsmResponse.cs" />
-    <Compile Include="Messages\Asm\Objects\AuthenticatorInfo.cs" />
-    <Compile Include="Messages\Asm\Objects\GetInfoOut.cs" />
-    <Compile Include="Messages\Asm\Objects\RegisterIn.cs" />
-    <Compile Include="Messages\Asm\Objects\RegisterOut.cs" />
-    <Compile Include="Messages\Asm\Request.cs" />
-    <Compile Include="Messages\Asm\StatusCode.cs" />
-    <Compile Include="Messages\AuthenticationRequest.cs" />
-    <Compile Include="Messages\AuthenticationResponse.cs" />
-    <Compile Include="AuthenticatorCharacteristics\AssertionSchemes.cs" />
-    <Compile Include="AuthenticatorCharacteristics\AttachmentHints.cs" />
-    <Compile Include="AuthenticatorCharacteristics\AuthenticationAlgorithms.cs" />
-    <Compile Include="AuthenticatorCharacteristics\KeyProtectionTypes.cs" />
-    <Compile Include="AuthenticatorCharacteristics\MatcherProtectionTypes.cs" />
-    <Compile Include="AuthenticatorCharacteristics\PublicKeyRepresentationFormats.cs" />
-    <Compile Include="AuthenticatorCharacteristics\TransactionConfirmationDisplayTypes.cs" />
-    <Compile Include="AuthenticatorCharacteristics\UserVerificationMethods.cs" />
-    <Compile Include="Messages\AuthenticatorRegistrationAssertion.cs" />
-    <Compile Include="Messages\AuthenticatorSignAssertion.cs" />
-    <Compile Include="Messages\ChannelBinding.cs" />
-    <Compile Include="Messages\DeregisterAuthenticator.cs" />
-    <Compile Include="Messages\DeregistrationRequest.cs" />
-    <Compile Include="Messages\DisplayPngCharacteristicsDescriptor.cs" />
-    <Compile Include="Messages\Extension.cs" />
-    <Compile Include="Messages\FinalChallengeParams.cs" />
-    <Compile Include="Messages\JwkKey.cs" />
-    <Compile Include="Messages\MatchCriteria.cs" />
-    <Compile Include="Messages\Operation.cs" />
-    <Compile Include="Messages\OperationHeader.cs" />
-    <Compile Include="Messages\Policy.cs" />
-    <Compile Include="Messages\RegistrationRequest.cs" />
-    <Compile Include="Messages\RegistrationResponse.cs" />
-    <Compile Include="Messages\RgbPalletteEntry.cs" />
-    <Compile Include="Tlv\TagTypes.cs" />
-    <Compile Include="Messages\Transaction.cs" />
-    <Compile Include="Messages\Version.cs" />
+    <Compile Include="JsonDeseralizationUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\RegistrationUtils.cs" />
-    <EmbeddedResource Include="Properties\Fido.Uaf.Shared.rd.xml" />
+    <Compile Include="UnitTestApp.xaml.cs">
+      <DependentUpon>UnitTestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UnitTest.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ApplicationDefinition Include="UnitTestApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="Fido.Uaf.Shared.Tests_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\UnitTestApp.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fido.Uaf.Shared\Fido.Uaf.Shared.csproj">
+      <Project>{820142e8-c1c6-441d-9e00-a28925679685}</Project>
+      <Name>Fido.Uaf.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
+  <PropertyGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

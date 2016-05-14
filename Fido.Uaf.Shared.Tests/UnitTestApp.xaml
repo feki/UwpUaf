@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="Fido.Uaf.Shared.Tests.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fido.Uaf.Shared.Tests"
+    RequestedTheme="Light">
+
+</Application>

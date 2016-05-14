@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpUaf.Demo", "UwpUaf.Demo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UwpUaf.Client", "UwpUaf.Client\UwpUaf.Client.csproj", "{B54D8C22-E4D9-4DF0-980A-07A271048116}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fido.Uaf.Shared.Tests", "Fido.Uaf.Shared.Tests\Fido.Uaf.Shared.Tests.csproj", "{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,26 @@ Global
 		{B54D8C22-E4D9-4DF0-980A-07A271048116}.Release|x64.Build.0 = Release|x64
 		{B54D8C22-E4D9-4DF0-980A-07A271048116}.Release|x86.ActiveCfg = Release|x86
 		{B54D8C22-E4D9-4DF0-980A-07A271048116}.Release|x86.Build.0 = Release|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|ARM.ActiveCfg = Debug|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|ARM.Build.0 = Debug|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|ARM.Deploy.0 = Debug|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x64.ActiveCfg = Debug|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x64.Build.0 = Debug|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x64.Deploy.0 = Debug|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x86.ActiveCfg = Debug|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x86.Build.0 = Debug|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Debug|x86.Deploy.0 = Debug|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|Any CPU.ActiveCfg = Release|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|ARM.ActiveCfg = Release|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|ARM.Build.0 = Release|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|ARM.Deploy.0 = Release|ARM
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x64.ActiveCfg = Release|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x64.Build.0 = Release|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x64.Deploy.0 = Release|x64
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x86.ActiveCfg = Release|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x86.Build.0 = Release|x86
+		{88AA5D11-8F5E-4303-8AE5-7C37B5E2D07D}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
