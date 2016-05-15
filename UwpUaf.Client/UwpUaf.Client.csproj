@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{b54d8c22-e4d9-4df0-980a-07a271048116}</ProjectGuid>
+    <ProjectGuid>{B54D8C22-E4D9-4DF0-980A-07A271048116}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UwpUaf.Client</RootNamespace>
@@ -107,9 +107,18 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="UafClientUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UwpUaf.Client.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UafRequestMessages.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fido.Uaf.Shared\Fido.Uaf.Shared.csproj">
+      <Project>{820142e8-c1c6-441d-9e00-a28925679685}</Project>
+      <Name>Fido.Uaf.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
