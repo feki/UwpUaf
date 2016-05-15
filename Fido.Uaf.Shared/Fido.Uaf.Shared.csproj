@@ -137,7 +137,9 @@
     <Compile Include="Messages\MatchCriteria.cs" />
     <Compile Include="Messages\Operation.cs" />
     <Compile Include="Messages\OperationHeader.cs" />
+    <Compile Include="Messages\OperationRequestBase.cs" />
     <Compile Include="Messages\Policy.cs" />
+    <Compile Include="Messages\RegAuthOperationRequestBase.cs" />
     <Compile Include="Messages\RegistrationRequest.cs" />
     <Compile Include="Messages\RegistrationResponse.cs" />
     <Compile Include="Messages\RgbPalletteEntry.cs" />
