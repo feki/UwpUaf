@@ -2,7 +2,7 @@
 
 namespace Fido.Uaf.Shared.Messages
 {
-    public class RegAuthOperationRequestBase: OperationRequestBase
+    public abstract class RegAuthOperationRequestBase: OperationRequestBase
     {
         /// <summary>
         /// Server-provided challenge value.

@@ -138,6 +138,7 @@
     <Compile Include="Messages\Operation.cs" />
     <Compile Include="Messages\OperationHeader.cs" />
     <Compile Include="Messages\OperationRequestBase.cs" />
+    <Compile Include="Messages\OperationResponseBase.cs" />
     <Compile Include="Messages\Policy.cs" />
     <Compile Include="Messages\RegAuthOperationRequestBase.cs" />
     <Compile Include="Messages\RegistrationRequest.cs" />
