@@ -22,7 +22,10 @@ namespace Fido.Uaf.Shared.Messages.Asm.Objects
         [JsonProperty("finalChallenge")]
         public string FinalChallenge { get; set; }
 
-        //[JsonProperty("transaction")]
-        //public Transaction[] Transactions { get; set; }
+        /// <summary>
+        /// An array of transaction data to be confirmed by user. If multiple transactions are provided, then the ASM MUST select the one that best matches the current display characteristics.
+        /// </summary>
+        [JsonProperty("transaction")]
+        public Transaction[] Transactions { get; set; }
     }
 }
