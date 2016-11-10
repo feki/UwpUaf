@@ -1,4 +1,6 @@
-﻿namespace Fido.Uaf.Shared.Messages.Asm.Objects
+﻿using Newtonsoft.Json;
+
+namespace Fido.Uaf.Shared.Messages.Asm.Objects
 {
     /// <summary>
     /// 
@@ -8,6 +10,7 @@
         /// <summary>
         /// List of authenticators reported by the current ASM. MAY be empty an empty list.
         /// </summary>
+        [JsonProperty("Authenticators")]
         public AuthenticatorInfo[] Authenticators { get; set; }
     }
 }
