@@ -109,8 +109,13 @@
   <ItemGroup>
     <Compile Include="Messages\Asm\AsmRequest.cs" />
     <Compile Include="Messages\Asm\AsmResponse.cs" />
+    <Compile Include="Messages\Asm\Objects\AppRegistration.cs" />
+    <Compile Include="Messages\Asm\Objects\DeregisterIn.cs" />
+    <Compile Include="Messages\Asm\Objects\AuthenticateOut.cs" />
+    <Compile Include="Messages\Asm\Objects\AuthenticateIn.cs" />
     <Compile Include="Messages\Asm\Objects\AuthenticatorInfo.cs" />
     <Compile Include="Messages\Asm\Objects\GetInfoOut.cs" />
+    <Compile Include="Messages\Asm\Objects\GetRegistrationsOut.cs" />
     <Compile Include="Messages\Asm\Objects\RegisterIn.cs" />
     <Compile Include="Messages\Asm\Objects\RegisterOut.cs" />
     <Compile Include="Messages\Asm\Request.cs" />
