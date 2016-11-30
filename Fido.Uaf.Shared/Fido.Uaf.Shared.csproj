@@ -107,7 +107,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messages\Asm\AsmRequestBase.cs" />
     <Compile Include="Messages\Asm\AsmRequest.cs" />
+    <Compile Include="Messages\Asm\AsmResponseBase.cs" />
     <Compile Include="Messages\Asm\AsmResponse.cs" />
     <Compile Include="Messages\Asm\Objects\AppRegistration.cs" />
     <Compile Include="Messages\Asm\Objects\DeregisterIn.cs" />
