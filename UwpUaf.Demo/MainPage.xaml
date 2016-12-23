@@ -10,6 +10,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <HyperlinkButton Click="UwpUafAuthenticator_Click">UwpUaf Authenticator (MicrosoftPassport)</HyperlinkButton>
+            <HyperlinkButton Click="SignatureTest_Click">Windows Hello (MicrosoftPassport) Signatre Test</HyperlinkButton>
+            <Button Click="Button_Click">GetInfo</Button>
         </StackPanel>
     </Grid>
 </Page>

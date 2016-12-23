@@ -8,20 +8,21 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock>AppId</TextBlock>
-            <TextBox x:Name="AppId"></TextBox>
-            <TextBlock>Challenge</TextBlock>
-            <TextBox x:Name="Challenge"></TextBox>
-            <Button HorizontalAlignment="Center" Margin="0,5" Click="RegisterButton_Click">Register</Button>
-            <Button HorizontalAlignment="Center" Margin="0,5" Click="SignButton_Click">Sign</Button>
-            <Button HorizontalAlignment="Center" Margin="0,5" Click="UnregisterButton_Click">Unregister</Button>
-            <TextBlock>Signed Challenge</TextBlock>
-            <TextBlock x:Name="SignedChallenge"></TextBlock>
-            <TextBlock>Public Key</TextBlock>
-            <TextBlock x:Name="PublicKey"></TextBlock>
-            <TextBlock>Unregister result</TextBlock>
-            <TextBlock x:Name="UnregisterResult"></TextBlock>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock>AppId</TextBlock>
+                <TextBox x:Name="AppId"></TextBox>
+                <TextBlock>Challenge</TextBlock>
+                <TextBox x:Name="Challenge"></TextBox>
+                <Button HorizontalAlignment="Center" Margin="0,5" Click="RegisterButton_Click">Register</Button>
+                <Button HorizontalAlignment="Center" Margin="0,5" Click="SignButton_Click">Sign</Button>
+                <Button HorizontalAlignment="Center" Margin="0,5" Click="UnregisterButton_Click">Unregister</Button>
+                <TextBox IsReadOnly="True" Header="Signed Challenge" TextWrapping="Wrap" x:Name="SignedChallenge"></TextBox>
+                <TextBox IsReadOnly="True" Header="Public Key" TextWrapping="Wrap" x:Name="PublicKey"></TextBox>
+                <TextBox IsReadOnly="True" Header="Signature Verification" TextWrapping="Wrap" x:Name="SignatureVerificationResult"></TextBox>
+                <TextBox IsReadOnly="True" Header="Attestation" TextWrapping="Wrap" x:Name="Attestation"></TextBox>
+                <TextBox IsReadOnly="True" Header="Unregister result" TextWrapping="Wrap" x:Name="UnregisterResult"></TextBox>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

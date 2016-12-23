@@ -17,10 +17,16 @@ namespace UwpUaf.Authenticator
         /// </summary>
         public IBuffer PublicKey { get; }
 
-        internal RegisterResponse(IBuffer signedChallenge, IBuffer publicKey)
+        /// <summary>
+        /// 
+        /// </summary>
+        public IBuffer Attestation { get; }
+
+        internal RegisterResponse(IBuffer signedChallenge, IBuffer publicKey, IBuffer attestation)
         {
             SignedChallenge = signedChallenge;
             PublicKey = publicKey;
+            Attestation = attestation;
         }
     }
 }

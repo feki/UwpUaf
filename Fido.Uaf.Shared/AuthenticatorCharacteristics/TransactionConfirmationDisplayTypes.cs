@@ -14,6 +14,11 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
     public enum TransactionConfirmationDisplayTypes
     {
         /// <summary>
+        /// Transaction confirmation is not supported by the authenticator.
+        /// </summary>
+        TransactionConfirmationDisplayNone = 0x0,
+
+        /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_ANY 0x01
         /// 
         /// This flag MUST be set to indicate, that some form of transaction confirmation display is

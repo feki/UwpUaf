@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Fido.Uaf.Shared.Messages
 {
@@ -26,5 +27,15 @@ namespace Fido.Uaf.Shared.Messages
         /// </note>
         [JsonProperty("minor")]
         public ushort Minor { get; set; } = 1;
+
+        public Version Clone()
+        {
+            return (Version)MemberwiseClone();
+        }
+
+        public static Version GetVersion_1_0()
+        {
+            return new Version { Major = 1, Minor = 0 };
+        }
     }
 }

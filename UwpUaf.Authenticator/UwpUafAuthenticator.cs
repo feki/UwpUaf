@@ -26,8 +26,9 @@ namespace UwpUaf.Authenticator
 
             var publicKey = userKey.RetrievePublicKey();
             var signedChallenge = await userKey.SignAsync(challenge);
+            var attestation = await userKey.GetAttestationAsync();
 
-            return new RegisterResponse(signedChallenge, publicKey);
+            return new RegisterResponse(signedChallenge, publicKey, attestation.AttestationBuffer);
         }
 
         public async Task<SignResponse> SignAsync(string appId, IBuffer challenge)
@@ -39,8 +40,11 @@ namespace UwpUaf.Authenticator
 
             KeyCredential credential = keyCredentialRetrievalResult.Credential;
             var signedChallenge = await credential.SignAsync(challenge);
+            var publicKey = credential.RetrievePublicKey();
+            var attestation = await credential.GetAttestationAsync();
+            var certChain = Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String(attestation.CertificateChainBuffer);
 
-            return new SignResponse(signedChallenge);
+            return new SignResponse(signedChallenge, publicKey, attestation.AttestationBuffer);
         }
 
         public async Task UnregisterAsync(string appId)
@@ -48,6 +52,11 @@ namespace UwpUaf.Authenticator
             await CheckSupportAsync();
 
             await KeyCredentialManager.DeleteAsync(appId);
+        }
+
+        public async Task<bool> IsSupportedAsync()
+        {
+            return await KeyCredentialManager.IsSupportedAsync();
         }
 
         private async Task CheckSupportAsync()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UwpUaf.Client.Api;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,14 +23,29 @@ namespace UwpUaf.Demo
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        readonly ClientApi fidoClientApi;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            ClientApiSettings.UwpUafClientPackageFamilyName = "8453f20d-8176-488e-b710-2a95626b46b4_6m15y1xak46te";
+            fidoClientApi = new ClientApi();
         }
 
-        private void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e)
+        void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(UwpUafAuthenticator));
+        }
+
+        void SignatureTest_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(WindowsHelloSignatureTest));
+        }
+
+        async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var discovery = await fidoClientApi.DiscoverAsync();
         }
     }
 }

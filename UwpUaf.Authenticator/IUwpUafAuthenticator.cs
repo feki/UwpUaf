@@ -11,6 +11,12 @@ namespace UwpUaf.Authenticator
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        Task<bool> IsSupportedAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
         Task<RegisterResponse> RegisterAsync(string appId, IBuffer challenge);
 
         /// <summary>
