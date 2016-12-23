@@ -57,6 +57,8 @@ namespace UwpUaf.Client.RtC
 
             try
             {
+                var authenticatorIdToPackageFamilyNameDictionary = new Dictionary<string, string>();
+
                 // 1. Zistit FamilyPackageName vsetkych ASM
                 var infos = await asmApi.DiscoverAsmAsync();
                 // 2. Zavolat GetInfo na kazdom z nich
@@ -65,6 +67,10 @@ namespace UwpUaf.Client.RtC
                 {
                     var response = await asmApi.GetInfoAsync(info.PackageFamilyName);
                     authenticators.AddRange(response.ResponseData.Authenticators);
+                    foreach (var auth in response.ResponseData.Authenticators)
+                    {
+                        authenticatorIdToPackageFamilyNameDictionary.Add(auth.Aaid, info.PackageFamilyName);
+                    }
                 }
 
                 // 3. Vytvorit DiscoveryResult
@@ -81,7 +87,8 @@ namespace UwpUaf.Client.RtC
                 {
                     { Api.Constants.UafIntentTypeKey, Api.Constants.UafIntentType.DiscoverResult },
                     { Api.Constants.ClientErrorCodeKey, (short)ErrorCode.NoError },
-                    { Api.Constants.ClientDiscoveryDataKey, JsonConvert.SerializeObject(discoveryData) }
+                    { Api.Constants.ClientDiscoveryDataKey, JsonConvert.SerializeObject(discoveryData) },
+                    { Api.Constants.AuthenticatorIdToPackageFamilyNameDictionaryKey, JsonConvert.SerializeObject(authenticatorIdToPackageFamilyNameDictionary) }
                 };
 
                 //Send the response

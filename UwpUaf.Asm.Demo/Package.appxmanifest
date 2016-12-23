@@ -21,11 +21,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="fido.uaf.asm" />
-        </uap:Extension>
         <uap:Extension Category="windows.appService" EntryPoint="UwpUaf.Asm.RtC.UwpUafAsmAppServiceTask">
-          <uap:AppService Name="fido.uaf.asm" />
+          <uap:AppService Name="org.fidoalliance.fido.uaf-asm+json" />
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="org.fidoalliance.fido.uaf-asm+json" />
         </uap:Extension>
       </Extensions>
     </Application>

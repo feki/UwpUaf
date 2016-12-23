@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Windows.ApplicationModel.AppService;
@@ -8,9 +9,17 @@ namespace UwpUaf.Client.Api
 {
     public class ClientApi : IClientApi
     {
+        IDictionary<string, string> authenticatorIdToPackageFamilyName = new Dictionary<string, string>();
+
         public async Task<DiscoveryData> DiscoverAsync()
         {
             AppServiceResponse response;
+            DiscoveryData discoveryData = null;
+            var message = new ValueSet
+            {
+                { Constants.UafIntentTypeKey, Constants.UafIntentType.Discover }
+            };
+
             using (var appService = new AppServiceConnection())
             {
                 appService.AppServiceName = Constants.UwpUafClientOperationProtocolScheme;
@@ -21,10 +30,6 @@ namespace UwpUaf.Client.Api
                     // TODO: app service opening connection wasn't successful
                 }
 
-                var message = new ValueSet
-                {
-                    { Constants.UafIntentTypeKey, Constants.UafIntentType.Discover }
-                };
                 response = await appService.SendMessageAsync(message);
             }
 
@@ -34,18 +39,21 @@ namespace UwpUaf.Client.Api
 
                 CheckResponseIntentType(res);
                 CheckResponseErrorCode(res);
-                var discoveryData = CheckAndGetResponseDiscoveryData(res);
+                discoveryData = CheckAndGetResponseDiscoveryData(res);
 
-                return discoveryData;
+                StoreAuthenticatorIdToPackageFamilyNameDictionary(this, res);
             }
-            else
-            {
-                // TODO:
-                throw new NotImplementedException();
-            }
+
+            return discoveryData;
         }
 
-        private DiscoveryData CheckAndGetResponseDiscoveryData(ValueSet res)
+        static void StoreAuthenticatorIdToPackageFamilyNameDictionary(ClientApi instance, ValueSet res)
+        {
+            var dicJson = res[Constants.AuthenticatorIdToPackageFamilyNameDictionaryKey] as string;
+            instance.authenticatorIdToPackageFamilyName = JsonConvert.DeserializeObject<Dictionary<string, string>>(dicJson);
+        }
+
+        static DiscoveryData CheckAndGetResponseDiscoveryData(ValueSet res)
         {
             if (!res.ContainsKey(Constants.ClientDiscoveryDataKey))
             {
@@ -55,7 +63,7 @@ namespace UwpUaf.Client.Api
             return JsonConvert.DeserializeObject<DiscoveryData>(res[Constants.ClientDiscoveryDataKey] as string);
         }
 
-        private void CheckResponseErrorCode(ValueSet res)
+        static void CheckResponseErrorCode(ValueSet res)
         {
             if (!res.ContainsKey(Constants.ClientErrorCodeKey))
             {
@@ -69,7 +77,7 @@ namespace UwpUaf.Client.Api
             }
         }
 
-        private void CheckResponseIntentType(ValueSet res)
+        static void CheckResponseIntentType(ValueSet res)
         {
             if (!res.ContainsKey(Constants.UafIntentTypeKey))
             {

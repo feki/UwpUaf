@@ -2,9 +2,11 @@
 {
     public static class Constants
     {
-        // It's too long. App service name can be at most 39 characters long.
-        //public const string UwpUafClientOperationProtocolScheme = "org.fidoalliance.fido-operation.fido.uaf-client+json";
-
+        /**
+         * It's too long. App service name can be at most 39 characters long.
+         *
+         * public const string UwpUafClientOperationProtocolScheme = "org.fidoalliance.fido-operation.fido.uaf-client+json";
+         */
         public const string UwpUafClientOperationProtocolScheme = "org.fidoalliance.fido.uaf-client+json";
 
         public const string ClientMessageKey = "message";
@@ -13,6 +15,7 @@
         public const string ClientChannelBindingsKey = "channelBindings";
         public const string ClientResponseCodeKey = "responseCode";
         public const string UafIntentTypeKey = "UAFIntentType";
+        public const string AuthenticatorIdToPackageFamilyNameDictionaryKey = "AuthenticatorIdToPackageFamilyNameDictionary";
 
         public static class UafIntentType
         {
