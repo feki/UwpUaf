@@ -122,7 +122,7 @@ namespace UwpUaf.Client.Demo
         {
             base.OnActivated(args);
 
-            Frame rootFrame = CreateRootFrame(args);
+            var rootFrame = CreateRootFrame(args);
             //if (rootFrame.Content == null)
             //{
             //    if (!rootFrame.Navigate(typeof(MainPage)))
@@ -140,9 +140,9 @@ namespace UwpUaf.Client.Demo
             await processor.HandleUafMessageAsync(args);
         }
 
-        private Frame CreateRootFrame(IActivatedEventArgs e)
+        static Frame CreateRootFrame(IActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            var rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

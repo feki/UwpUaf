@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Fido.Uaf.Shared.Messages.Asm.Objects;
 using UwpUaf.Asm.Api;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace UwpUaf.Client.Demo
 {
@@ -23,8 +11,16 @@ namespace UwpUaf.Client.Demo
     /// </summary>
     public sealed partial class GetInfoPage : Page
     {
-        readonly ObservableCollection<AsmGetInfo> authenticatorInfoItems = new ObservableCollection<AsmGetInfo>();
         readonly IAsmApi asmApi;
+        readonly ObservableCollection<AsmGetInfo> authenticatorInfoItems = new ObservableCollection<AsmGetInfo>();
+
+        public GetInfoPage()
+        {
+            this.InitializeComponent();
+
+            asmApi = new AsmApi();
+            DataContext = this;
+        }
 
         public ObservableCollection<AsmGetInfo> AuthenticatorInfoItems
         {
@@ -32,14 +28,6 @@ namespace UwpUaf.Client.Demo
             {
                 return authenticatorInfoItems;
             }
-        }
-
-        public GetInfoPage()
-        {
-            this.InitializeComponent();
-                
-            asmApi = new AsmApi();
-            DataContext = this;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

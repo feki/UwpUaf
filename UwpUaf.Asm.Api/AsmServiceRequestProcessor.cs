@@ -18,22 +18,24 @@ namespace UwpUaf.Asm.Api
 
         public async Task HandleAsmRequestAsync(AppServiceRequestReceivedEventArgs args)
         {
-            if (!args.Request.Message.ContainsKey(Constants.AsmMessageKey))
-            {
-                //TODO: Missing asm message data
-            }
-
-            var message = (string)args.Request.Message[Constants.AsmMessageKey];
-
-            var asmRequest = JsonConvert.DeserializeObject<AsmRequestBase>(message);
             AsmResponseBase asmResponse = null;
-            if (asmRequest.RequestType == Request.GetInfo)
+            if (args.Request.Message.ContainsKey(Constants.AsmMessageKey))
             {
-                asmResponse = await handlers.ProcessGetInfoRequestAsync(asmRequest);
+                try
+                {
+                    var message = (string)args.Request.Message[Constants.AsmMessageKey];
+
+                    var asmRequest = JsonConvert.DeserializeObject<AsmRequestBase>(message);
+                    asmResponse = asmRequest.RequestType == Request.GetInfo ? (AsmResponseBase)await handlers.ProcessGetInfoRequestAsync(asmRequest) : CreateErrorAsmResponse();
+                }
+                catch (Exception)
+                {
+                    asmResponse = CreateErrorAsmResponse();
+                }
             }
             else
             {
-                // TODO: Unsupported asm request type
+                asmResponse = CreateErrorAsmResponse();
             }
 
             var result = new ValueSet
@@ -42,6 +44,14 @@ namespace UwpUaf.Asm.Api
             };
 
             var status = await args.Request.SendResponseAsync(result);
+        }
+
+        private static AsmResponseBase CreateErrorAsmResponse()
+        {
+            return new AsmResponseBase
+            {
+                StatusCode = StatusCode.UafAsmStatusError
+            };
         }
     }
 }

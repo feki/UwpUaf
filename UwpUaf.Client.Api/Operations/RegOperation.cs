@@ -33,7 +33,7 @@ namespace UwpUaf.Client.Api.Operations
                 throw new FidoOperationErrorCodeException(ErrorCode.UntrustedFacetId);
             }
 
-            var authenticators = await clientApi.GetAvailableAuthenticators();
+            var authenticators = await clientApi.GetAvailableAuthenticatorsAsync();
             var availableAuthenticators = authenticators.Where(a => !a.IsUserEnrolled).ToArray();
 
             promise = new TaskCompletionSource<OperationResponseBase>();

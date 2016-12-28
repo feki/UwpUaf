@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UwpUaf.Asm.Api;
 using UwpUaf.Asm.Shared;
 using UwpUaf.Asm.Shared.AsmApi;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace UwpUaf.Asm.Demo
@@ -33,6 +23,28 @@ namespace UwpUaf.Asm.Demo
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        protected override async void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            var rootFrame = CreateRootFrame(args);
+            //if (rootFrame.Content == null)
+            //{
+            //    if (!rootFrame.Navigate(typeof(MainPage)))
+            //    {
+            //        throw new Exception("Failed to create initial page");
+            //    }
+            //}
+            // Ensure the current window is active
+            Window.Current.Activate();
+
+            var a = args as ProtocolForResultsActivatedEventArgs;
+            var handlers = new AsmProtocolRequestHandlers(new AuthenticatorFactory(), rootFrame);
+            var processor = new AsmProtocolRequestProcessor(handlers);
+
+            await processor.HandleAsmRequestAsync(args);
         }
 
         /// <summary>
@@ -79,6 +91,31 @@ namespace UwpUaf.Asm.Demo
             }
         }
 
+        static Frame CreateRootFrame(IActivatedEventArgs e)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Load state from previously suspended application
+                }
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+            return rootFrame;
+        }
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
@@ -101,53 +138,6 @@ namespace UwpUaf.Asm.Demo
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
-        }
-
-        protected override async void OnActivated(IActivatedEventArgs args)
-        {
-            base.OnActivated(args);
-
-            Frame rootFrame = CreateRootFrame(args);
-            //if (rootFrame.Content == null)
-            //{
-            //    if (!rootFrame.Navigate(typeof(MainPage)))
-            //    {
-            //        throw new Exception("Failed to create initial page");
-            //    }
-            //}
-            // Ensure the current window is active
-            Window.Current.Activate();
-
-            var a = args as ProtocolForResultsActivatedEventArgs;
-            var handlers = new AsmProtocolRequestHandlers(new AuthenticatorFactory(), rootFrame);
-            var processor = new AsmProtocolRequestProcessor(handlers);
-
-            await processor.HandleAsmRequestAsync(args);
-        }
-
-        private Frame CreateRootFrame(IActivatedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            return rootFrame;
         }
     }
 }

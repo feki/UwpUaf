@@ -190,7 +190,7 @@ namespace UwpUaf.Client.Api
             var result = await SendOperationAsync(message, channelBinding);
         }
 
-        public async Task<IList<AuthenticatorInfo>> GetAvailableAuthenticators()
+        public async Task<IList<AuthenticatorInfo>> GetAvailableAuthenticatorsAsync()
         {
             var authenticatorIdToPackageFamilyNameDictionary = new Dictionary<string, string>();
 

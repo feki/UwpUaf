@@ -9,7 +9,7 @@ namespace UwpUaf.Client.Api
     {
         Task<DiscoveryData> DiscoverAsync();
 
-        Task<IList<AuthenticatorInfo>> GetAvailableAuthenticators();
+        Task<IList<AuthenticatorInfo>> GetAvailableAuthenticatorsAsync();
 
         Task<RegistrationResponse> RegisterAsync(RegistrationRequest registrationRequest, ChannelBinding channelBinding);
 

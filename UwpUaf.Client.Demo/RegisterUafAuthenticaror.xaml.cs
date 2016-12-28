@@ -46,7 +46,7 @@ namespace UwpUaf.Client.Demo
             }
             else
             {
-                var availableAuthenticators = await clientApi.GetAvailableAuthenticators();
+                var availableAuthenticators = await clientApi.GetAvailableAuthenticatorsAsync();
                 foreach (var auth in availableAuthenticators)
                 {
                     authenticatorInfoItems.Add(auth);
