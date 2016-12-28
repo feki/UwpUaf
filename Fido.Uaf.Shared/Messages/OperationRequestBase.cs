@@ -12,5 +12,10 @@ namespace Fido.Uaf.Shared.Messages
         /// </summary>
         [JsonProperty("header", Required = Required.Always)]
         public OperationHeader Header { get; set; }
+
+        public virtual bool ValidateMandatoryFields()
+        {
+            return Header != null;
+        }
     }
 }

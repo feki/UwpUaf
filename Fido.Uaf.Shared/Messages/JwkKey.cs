@@ -5,7 +5,7 @@ namespace Fido.Uaf.Shared.Messages
     /// <summary>
     /// `JwkKey` representing a JSON Web Key encoding of an elliptic curve public key
     /// [JWK](http://tools.ietf.org/html/draft-ietf-jose-json-web-key-11).
-    /// 
+    ///
     /// This public key is the ChannelID public key minted by the client TLS stack
     /// for the particular relying party. [ChannelID](http://tools.ietf.org/html/draft-balfanz-tls-channelid)
     /// stipulates using only a particular elliptic curve, and the particular coordinate type.

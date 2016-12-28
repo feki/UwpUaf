@@ -31,5 +31,10 @@ namespace UwpUaf.Client.Demo
         {
             Frame.Navigate(typeof(GetInfoPage));
         }
+
+        private void RegisterUafAuthenticator_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RegisterUafAuthenticaror));
+        }
     }
 }

@@ -26,13 +26,13 @@ namespace UwpUaf.Asm.Api
             foreach (var info in infos)
             {
                 var asmRes = await GetInfoAsync(info.PackageFamilyName);
-                ret.Add(new AsmGetInfo { AppInfo = info, AsmResponse = asmRes });
+                ret.Add(new AsmGetInfo { AppInfo = info, GetInfoOut = asmRes });
             }
 
             return ret;
         }
 
-        public async Task<AsmResponse<GetInfoOut>> GetInfoAsync(string asmPackageFamilyName)
+        public async Task<GetInfoOut> GetInfoAsync(string asmPackageFamilyName)
         {
             var asmRequest = new AsmRequestBase { RequestType = Request.GetInfo };
             var message = new ValueSet { { Constants.AsmMessageKey, JsonConvert.SerializeObject(asmRequest) } };
@@ -62,13 +62,64 @@ namespace UwpUaf.Asm.Api
                     throw new UafAsmStatusException(asmResponse.StatusCode);
                 }
 
-                return asmResponse;
+                return asmResponse.ResponseData;
             }
             else
             {
-                // TODO:
-                throw new NotImplementedException();
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
             }
+        }
+
+        public async Task<RegisterOut> RegisterAsync(RegisterIn registerIn, string asmPackageFamilyName, ushort authenticatorIndex)
+        {
+            var result = await LaunchUriForResultsAsync<RegisterIn, RegisterOut>(Request.Register, registerIn, asmPackageFamilyName, authenticatorIndex);
+
+            return result;
+        }
+
+        public async Task DeregisterAsync(DeregisterIn deregisterIn, string asmPackageFamilyName, ushort authenticatorIndex)
+        {
+            await LaunchUriForResultsAsync<DeregisterIn, object>(Request.Deregister, deregisterIn, asmPackageFamilyName, authenticatorIndex);
+        }
+
+        public async Task<AuthenticateOut> AuthenticateAsync(AuthenticateIn authenticateIn, string asmPackageFamilyName, ushort authenticatorIndex)
+        {
+            var result = await LaunchUriForResultsAsync<AuthenticateIn, AuthenticateOut>(Request.Authenticate, authenticateIn, asmPackageFamilyName, authenticatorIndex);
+
+            return result;
+        }
+
+        async static Task<TOut> LaunchUriForResultsAsync<TIn, TOut>(Request requestType, TIn inData, string asmPackageFamilyName, ushort authenticatorIndex)
+        {
+            var asmRequest = new AsmRequest<TIn>
+            {
+                RequestType = requestType,
+                AsmVersion = Fido.Uaf.Shared.Messages.Version.GetVersion_1_0(),
+                AuthenticatorIndex = authenticatorIndex,
+                Args = inData
+            };
+            var data = new ValueSet { { Constants.AsmMessageKey, JsonConvert.SerializeObject(asmRequest) } };
+
+            var uri = new Uri($"{Constants.UwpUafAsmOperationProtocolScheme}:");
+            var options = new LauncherOptions
+            {
+                TargetApplicationPackageFamilyName = asmPackageFamilyName
+            };
+
+            var result = await Launcher.LaunchUriForResultsAsync(uri, options, data);
+            if (result.Status != LaunchUriStatus.Success)
+            {
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
+            }
+
+            var responseMessage = result.Result[Constants.AsmMessageKey] as string;
+            var asmResponse = JsonConvert.DeserializeObject<AsmResponse<TOut>>(responseMessage);
+            if (asmResponse.StatusCode != StatusCode.UafAsmStatusOk)
+            {
+                throw new UafAsmStatusException(asmResponse.StatusCode);
+            }
+
+            return asmResponse.ResponseData;
         }
     }
 }

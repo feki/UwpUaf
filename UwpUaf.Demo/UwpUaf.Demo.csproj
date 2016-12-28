@@ -103,6 +103,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterTest.xaml.cs">
+      <DependentUpon>RegisterTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UwpUafAuthenticator.xaml.cs">
       <DependentUpon>UwpUafAuthenticator.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="RegisterTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UwpUafAuthenticator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +156,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fido.Uaf.Shared\Fido.Uaf.Shared.csproj">
+      <Project>{820142e8-c1c6-441d-9e00-a28925679685}</Project>
+      <Name>Fido.Uaf.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UwpUaf.Authenticator\UwpUaf.Authenticator.csproj">
       <Project>{a61a04b0-ab05-4522-b50f-adb03cc6630c}</Project>
       <Name>UwpUaf.Authenticator</Name>

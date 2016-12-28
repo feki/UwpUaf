@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using UwpUaf.Asm.Api;
+using Windows.UI.Xaml.Controls;
 
 namespace UwpUaf.Asm.Shared.AsmApi
 {
-    class AsmProtocolRequestHandlers : IAsmProtocolRequestHandlers
+    public class AsmProtocolRequestHandlers : IAsmProtocolRequestHandlers
     {
-        private readonly IAuthenticatorFactory authenticatorFactory;
+        readonly Frame frame;
+        readonly IAuthenticatorFactory authenticatorFactory;
 
-        public AsmProtocolRequestHandlers(IAuthenticatorFactory authenticator)
+        public AsmProtocolRequestHandlers(IAuthenticatorFactory authenticator, Frame frame)
         {
             this.authenticatorFactory = authenticator;
+            this.frame = frame;
         }
 
         public Task<AsmResponse<AuthenticateOut>> ProcessAuthenticateRequestAsync(AsmRequest<AuthenticateIn> asmRequest)
@@ -34,6 +37,7 @@ namespace UwpUaf.Asm.Shared.AsmApi
             try
             {
                 var auth = authenticatorFactory.GetAuthenticatorInstance(asmRequest.AuthenticatorIndex);
+                auth.Frame = frame;
                 var registerOut = await auth.RegisterAsync(asmRequest.Args);
                 if (registerOut != null)
                 {

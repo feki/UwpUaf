@@ -3,7 +3,7 @@
 namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class DeregistrationRequest: OperationRequestBase
     {
@@ -12,5 +12,10 @@ namespace Fido.Uaf.Shared.Messages
         /// </summary>
         [JsonProperty("authenticators", Required = Required.Always)]
         public DeregisterAuthenticator[] Authenticators { get; set; }
+
+        public override bool ValidateMandatoryFields()
+        {
+            return base.ValidateMandatoryFields() && Authenticators != null;
+        }
     }
 }

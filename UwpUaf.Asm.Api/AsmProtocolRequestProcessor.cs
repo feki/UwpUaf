@@ -16,16 +16,16 @@ namespace UwpUaf.Asm.Api
     /// </summary>
     public class AsmProtocolRequestProcessor
     {
-        private readonly IAsmProtocolRequestHandlers handlers;
+        readonly IAsmProtocolRequestHandlers handlers;
 
-        private IDictionary<Request, Type> AsmRequestTypeToObjectTypeMap { get; } = new Dictionary<Request, Type>
+        IDictionary<Request, Type> AsmRequestTypeToObjectTypeMap { get; } = new Dictionary<Request, Type>
         {
             { Request.Register, typeof(AsmRequest<RegisterIn>) },
             { Request.Authenticate, typeof(AsmRequest<AuthenticateIn>) },
             { Request.Deregister, typeof(AsmRequest<DeregisterIn>) }
         };
 
-        private IDictionary<Request, Func<AsmRequestBase, IAsmProtocolRequestHandlers, Task<AsmResponseBase>>> AsmRequestTypeToRequestProcessorMap { get; } =
+        IDictionary<Request, Func<AsmRequestBase, IAsmProtocolRequestHandlers, Task<AsmResponseBase>>> AsmRequestTypeToRequestProcessorMap { get; } =
             new Dictionary<Request, Func<AsmRequestBase, IAsmProtocolRequestHandlers, Task<AsmResponseBase>>>
             {
                 { Request.Register, async (request, handlers) => await handlers.ProcessRegisterRequestAsync(request as AsmRequest<RegisterIn>) },
@@ -82,7 +82,7 @@ namespace UwpUaf.Asm.Api
             args.ProtocolForResultsOperation.ReportCompleted(result);
         }
 
-        private AsmRequestBase DeserializeAsmRequestJson(string asmMessageJson)
+        AsmRequestBase DeserializeAsmRequestJson(string asmMessageJson)
         {
             JObject messageObject;
             try
@@ -120,7 +120,7 @@ namespace UwpUaf.Asm.Api
             return (AsmRequestBase)messageObject.ToObject(asmType);
         }
 
-        private async Task<AsmResponseBase> ProcessAsmRequestAsync(AsmRequestBase asmRequest)
+        async Task<AsmResponseBase> ProcessAsmRequestAsync(AsmRequestBase asmRequest)
         {
             var processor = AsmRequestTypeToRequestProcessorMap[asmRequest.RequestType];
             return await processor(asmRequest, handlers);

@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UwpUaf.Client.Api;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using UwpUaf.Client.Api;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace UwpUaf.Demo
 {
@@ -30,22 +16,35 @@ namespace UwpUaf.Demo
             this.InitializeComponent();
 
             ClientApiSettings.UwpUafClientPackageFamilyName = "8453f20d-8176-488e-b710-2a95626b46b4_6m15y1xak46te";
-            fidoClientApi = new ClientApi();
+            fidoClientApi = ClientApi.Instance;
         }
 
-        void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e)
+#pragma warning disable CC0057 // Unused parameters
+        async void Button_ClickAsync(object sender, RoutedEventArgs e)
+#pragma warning restore CC0057 // Unused parameters
         {
-            Frame.Navigate(typeof(UwpUafAuthenticator));
+            var discovery = await fidoClientApi.DiscoverAsync();
         }
 
+#pragma warning disable CC0057 // Unused parameters
+        private void RegisterTest_Click(object sender, RoutedEventArgs e)
+#pragma warning restore CC0057 // Unused parameters
+        {
+            Frame.Navigate(typeof(RegisterTest));
+        }
+
+#pragma warning disable CC0057 // Unused parameters
         void SignatureTest_Click(object sender, RoutedEventArgs e)
+#pragma warning restore CC0057 // Unused parameters
         {
             Frame.Navigate(typeof(WindowsHelloSignatureTest));
         }
 
-        async void Button_Click(object sender, RoutedEventArgs e)
+#pragma warning disable CC0057 // Unused parameters
+        void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e)
+#pragma warning restore CC0057 // Unused parameters
         {
-            var discovery = await fidoClientApi.DiscoverAsync();
+            Frame.Navigate(typeof(UwpUafAuthenticator));
         }
     }
 }

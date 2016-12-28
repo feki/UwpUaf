@@ -108,16 +108,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsmApi\AsmProtocolRequestHandlers.cs" />
+    <Compile Include="AsmStatusCodeException.cs" />
     <Compile Include="AuthenticatorFactory.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="CredentialExtensions.cs" />
     <Compile Include="FingerprintAutenticatorSimulator.cs" />
     <Compile Include="HelloAuthenticator.cs" />
     <Compile Include="IAuthenticator.cs" />
     <Compile Include="IAuthenticatorFactory.cs" />
+    <Compile Include="IOnCancelationHandler.cs" />
+    <Compile Include="IOnConfirmationHandler.cs" />
     <Compile Include="Op\Processor\AuthAssertionBuilder.cs" />
     <Compile Include="Op\Processor\ReqAssertionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ui\FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml.cs">
+      <DependentUpon>FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\RegistrationConfirmationParameter.cs" />
     <EmbeddedResource Include="Properties\UwpUaf.Asm.Shared.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +135,16 @@
       <Project>{0e1fcca0-b6ec-4190-baf4-fc3eaaa44a0f}</Project>
       <Name>UwpUaf.Asm.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UwpUaf.Shared\UwpUaf.Shared.csproj">
+      <Project>{42a923cf-d917-485d-978b-8d2305d10150}</Project>
+      <Name>UwpUaf.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Ui\FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

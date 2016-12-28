@@ -11,7 +11,7 @@ namespace UwpUaf.Asm.Api
 {
     public class AsmGetInfo
     {
-        public AsmResponse<GetInfoOut> AsmResponse { get; internal set; }
+        public GetInfoOut GetInfoOut { get; internal set; }
 
         public AppInfo AppInfo { get; internal set; }
     }

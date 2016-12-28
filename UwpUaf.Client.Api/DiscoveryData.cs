@@ -19,13 +19,13 @@ namespace UwpUaf.Client.Api
         public string ClientVendor { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [JsonProperty("clientVersion")]
         public Version ClientVersion { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [JsonProperty("availableAuthenticators")]
         public AuthenticatorInfo[] AvailableAuthenticators { get; set; }

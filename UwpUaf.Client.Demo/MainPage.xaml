@@ -10,6 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="15,10,0,0">
             <HyperlinkButton x:Name="GetIngoBtn" Click="GetIngoBtn_Click">GetInfo</HyperlinkButton>
+            <HyperlinkButton x:Name="RegisterUafAuthenticator" Click="RegisterUafAuthenticator_Click">Register UAF Authenticator</HyperlinkButton>
         </StackPanel>
     </Grid>
 </Page>

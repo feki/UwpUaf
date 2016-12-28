@@ -3,7 +3,7 @@
 namespace Fido.Uaf.Shared.Messages.Asm.Objects
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RegisterOut
     {

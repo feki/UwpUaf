@@ -25,17 +25,15 @@ namespace UwpUaf.Asm.Api
 
             var message = (string)args.Request.Message[Constants.AsmMessageKey];
 
-            var asmRequest = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<AsmRequestBase>(message));
+            var asmRequest = JsonConvert.DeserializeObject<AsmRequestBase>(message);
             AsmResponseBase asmResponse = null;
             if (asmRequest.RequestType == Request.GetInfo)
             {
-                var request = JsonConvert.DeserializeObject<AsmRequestBase>(message);
-                asmResponse = await handlers.ProcessGetInfoRequestAsync(request);
+                asmResponse = await handlers.ProcessGetInfoRequestAsync(asmRequest);
             }
             else
             {
                 // TODO: Unsupported asm request type
-                asmResponse = null;
             }
 
             var result = new ValueSet
@@ -44,22 +42,6 @@ namespace UwpUaf.Asm.Api
             };
 
             var status = await args.Request.SendResponseAsync(result);
-            //TODO: check AppServiceResponseStatus
-            switch (status)
-            {
-                case AppServiceResponseStatus.Success:
-                    break;
-                case AppServiceResponseStatus.Failure:
-                    break;
-                case AppServiceResponseStatus.ResourceLimitsExceeded:
-                    break;
-                case AppServiceResponseStatus.Unknown:
-                    break;
-                case AppServiceResponseStatus.RemoteSystemUnavailable:
-                    break;
-                case AppServiceResponseStatus.MessageSizeTooLarge:
-                    break;
-            }
         }
     }
 }

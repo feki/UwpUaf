@@ -16,6 +16,12 @@ namespace UwpUaf.Asm.Api
 
         Task<IEnumerable<AsmGetInfo>> GetInfoAsync();
 
-        Task<AsmResponse<GetInfoOut>> GetInfoAsync(string asmPackageFamilyName);
+        Task<GetInfoOut> GetInfoAsync(string asmPackageFamilyName);
+
+        Task<RegisterOut> RegisterAsync(RegisterIn registerIn, string asmPackageFamilyName, ushort authenticatorIndex);
+
+        Task DeregisterAsync(DeregisterIn deregisterIn, string asmPackageFamilyName, ushort authenticatorIndex);
+
+        Task<AuthenticateOut> AuthenticateAsync(AuthenticateIn authenticateIn, string asmPackageFamilyName, ushort authenticatorIndex);
     }
 }

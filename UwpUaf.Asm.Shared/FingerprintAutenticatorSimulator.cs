@@ -4,14 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.AuthenticatorCharacteristics;
+using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using Fido.Uaf.Shared.Tlv;
+using Org.BouncyCastle.Security;
+using UwpUaf.Asm.Shared.Op.Processor;
+using UwpUaf.Shared;
+using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls;
 
 namespace UwpUaf.Asm.Shared
 {
-    class FingerprintAutenticatorSimulator: IAuthenticator
+    class FingerprintAutenticatorSimulator : IAuthenticator, IOnConfirmationHandler
     {
+        TaskCompletionSource<bool> promise;
+
         const string CERT_BASE64 = "MIICCjCCAbCgAwIBAgIgK7JjKpFsqc8+UCDr8ZGpCI+r+6DuiNwy9lEV0GmGxLMwCgYIKoZIzj0EAwIwfzELMAkGA1UEBhMCQ1oxFzAVBgNVBAgMDkN6ZWNoIFJlcHVibGljMQ0wCwYDVQQHDARCcm5vMRswGQYDVQQKDBJBSEVBRCBpVGVjLCBzLnIuby4xDTALBgNVBAsMBHNlbGYxHDAaBgNVBAMME3Rlc3RAYWhlYWQtaXRlYy5jb20wHhcNMTYxMjExMTk1NTI3WhcNMjYxMjExMTk1NTI3WjB/MQswCQYDVQQGEwJDWjEXMBUGA1UECAwOQ3plY2ggUmVwdWJsaWMxDTALBgNVBAcMBEJybm8xGzAZBgNVBAoMEkFIRUFEIGlUZWMsIHMuci5vLjENMAsGA1UECwwEc2VsZjEcMBoGA1UEAwwTdGVzdEBhaGVhZC1pdGVjLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABAStjiFc8ctJfbgAMyHGLU2acDz9vbSlzYPxYNZub9qG7pybq1/By2y6o+4rqDIzJan47pVS31K1ZC6HPqs2TgwwCgYIKoZIzj0EAwIDSAAwRQIhAKWnrz+iAm1oQaiW+L/ZncDwxiOAlVHpHbDBB13TR6q0AiAvzNJrgpEXcIfAz18q9hSMBSgu0LFnmTZVj/95ALrFow==";
         const string PUBLIC_KEY_BASE64 = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBK2OIVzxy0l9uAAzIcYtTZpwPP29tKXNg/Fg1m5v2obunJurX8HLbLqj7iuoMjMlqfjulVLfUrVkLoc+qzZODA==";
         const string PRIVATE_KEY_BASE64 = "ME0CAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEMzAxAgEBBCBs0AjkwtBjQmJkbr9E6k6cgFjBcnuRb85jvzHm2H9sSqAKBggqhkjOPQMBBw==";
@@ -38,27 +46,25 @@ namespace UwpUaf.Asm.Shared
             }
         }
 
-        public string Aaid
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Aaid => "0000#0001";
 
-        public string AssertionScheme
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string AssertionScheme => AssertionSchemes.UAFV1TLV;
 
         public string KeyId
         {
             get
             {
-                throw new NotImplementedException();
+                var rs = new StringBuilder();
+                var rnd = new byte[16];
+                var random = new SecureRandom();
+
+                random.NextBytes(rnd);
+                rs.Append("$2a$10$");
+                rs.Append(Convert.ToBase64String(rnd));
+
+                var keyId = "UwpUaf-FingerprintAutenticatorSimulator-Key-" + Convert.ToBase64String(Encoding.UTF8.GetBytes(rs.ToString()));
+
+                return keyId.ConvertToBase64UrlString();
             }
         }
 
@@ -76,7 +82,7 @@ namespace UwpUaf.Asm.Shared
                 MatcherProtection = MatcherProtectionTypes.MatcherProtectionSoftware,
                 IsSecondFactorOnly = false,
                 AttachmentHint = AttachmentHints.AttachmentHintInternal,
-                AttestationTypes = (short)TagTypes.TagAttestationBasicSurrogate | (short)TagTypes.TagAttestationBasicFull,
+                AttestationTypes = (short)TagTypes.TagAttestationBasicFull,
 
                 Icon = ICON,
                 IsRoamingAuthenticator = false,
@@ -87,9 +93,32 @@ namespace UwpUaf.Asm.Shared
             };
         }
 
-        public Task<RegisterOut> RegisterAsync(RegisterIn args)
+        public Frame Frame { get; set; }
+
+        public async Task<RegisterOut> RegisterAsync(RegisterIn registerIn)
         {
-            throw new NotImplementedException();
+            var appId = registerIn.AppId;
+            var challenge = CryptographicBuffer.ConvertStringToBinary(registerIn.FinalChallenge, BinaryStringEncoding.Utf8);
+
+            promise = new TaskCompletionSource<bool>();
+
+            var parameter = new Ui.RegistrationConfirmationParameter
+            {
+                AuthenticatorInfo = GetAuthenticatorInfo(),
+                RegisterIn = registerIn,
+                ConfirmationHandler = this
+            };
+            Frame.Navigate(typeof(Ui.FingerprintAuthenticatorSimulatorRegistrationConfirmation), parameter);
+
+            await promise.Task;
+
+            var registerOut = new RegisterOut();
+            var builder = new ReqAssertionBuilder(this, GetPublicKey(), challenge);
+
+            registerOut.Assertion = await builder.GetAssertionsAsync((TagTypes)registerIn.AttestationType);
+            registerOut.AssertionScheme = AssertionScheme;
+
+            return registerOut;
         }
 
         public Task<AuthenticateOut> AuthenticateAsync(AuthenticateIn args)
@@ -97,19 +126,42 @@ namespace UwpUaf.Asm.Shared
             throw new NotImplementedException();
         }
 
-        public Task<IBuffer> SignAsync(IBuffer challenge)
+        public async Task<IBuffer> SignAsync(IBuffer challenge)
         {
-            throw new NotImplementedException();
+            var signer = SignerUtilities.GetSigner("SHA256WithECDSA");
+            var key = PrivateKeyFactory.CreateKey(Convert.FromBase64String(PRIVATE_KEY_BASE64));
+            signer.Init(true, key);
+            var signature = signer.GenerateSignature();
+
+            return await Task.Run(() => CryptographicBuffer.CreateFromByteArray(signature));
         }
 
         public IBuffer GetPublicKey()
         {
-            throw new NotImplementedException();
+            var pub = Convert.FromBase64String(PUBLIC_KEY_BASE64);
+            var buffer = CryptographicBuffer.CreateFromByteArray(pub);
+
+            return buffer;
         }
 
         public IBuffer GetCertificate()
         {
-            throw new NotImplementedException();
+            var cert = Convert.FromBase64String(CERT_BASE64);
+            var buffer = CryptographicBuffer.CreateFromByteArray(cert);
+
+            return buffer;
+        }
+
+        public async Task OnConfirmationAsync()
+        {
+            await Task.Delay(0);
+            promise?.TrySetResult(true);
+        }
+
+        public async Task OnCancelationAsync(StatusCode statusCode = StatusCode.UafAsmStatusUserCancelled)
+        {
+            await Task.Delay(0);
+            promise?.TrySetException(new AsmStatusCodeException(statusCode));
         }
     }
 }

@@ -14,6 +14,7 @@ using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls;
 
 namespace UwpUaf.Asm.Shared
 {
@@ -76,6 +77,8 @@ namespace UwpUaf.Asm.Shared
             }
         }
 
+        public Frame Frame { get; set; }
+
         public async Task<AuthenticateOut> AuthenticateAsync(AuthenticateIn args)
         {
             var appId = args.AppId;
@@ -110,10 +113,10 @@ namespace UwpUaf.Asm.Shared
             return CryptographicBuffer.CreateFromByteArray(pub);
         }
 
-        public async Task<RegisterOut> RegisterAsync(RegisterIn args)
+        public async Task<RegisterOut> RegisterAsync(RegisterIn registerIn)
         {
-            var appId = args.AppId;
-            var challenge = CryptographicBuffer.ConvertStringToBinary(args.FinalChallenge, BinaryStringEncoding.Utf8);
+            var appId = registerIn.AppId;
+            var challenge = CryptographicBuffer.ConvertStringToBinary(registerIn.FinalChallenge, BinaryStringEncoding.Utf8);
 
             // Create a new KeyCredential for the user on the device.
             var keyCredentialRetrievalResult = await KeyCredentialManager.RequestCreateAsync(appId, KeyCredentialCreationOption.ReplaceExisting);
@@ -128,7 +131,7 @@ namespace UwpUaf.Asm.Shared
             var registerOut = new RegisterOut();
             var builder = new ReqAssertionBuilder(this, publicKey, challenge);
 
-            registerOut.Assertion = await builder.GetAssertions();
+            registerOut.Assertion = await builder.GetAssertionsAsync((TagTypes)registerIn.AttestationType);
             registerOut.AssertionScheme = AssertionScheme;
 
             return registerOut;

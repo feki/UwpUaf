@@ -65,9 +65,9 @@ namespace UwpUaf.Client.RtC
                 var authenticators = new List<AuthenticatorInfo>();
                 foreach (var info in infos)
                 {
-                    var response = await asmApi.GetInfoAsync(info.PackageFamilyName);
-                    authenticators.AddRange(response.ResponseData.Authenticators);
-                    foreach (var auth in response.ResponseData.Authenticators)
+                    var getInfoOut = await asmApi.GetInfoAsync(info.PackageFamilyName);
+                    authenticators.AddRange(getInfoOut.Authenticators);
+                    foreach (var auth in getInfoOut.Authenticators)
                     {
                         authenticatorIdToPackageFamilyNameDictionary.Add(auth.Aaid, info.PackageFamilyName);
                     }

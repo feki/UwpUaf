@@ -30,7 +30,7 @@ namespace Fido.Uaf.Shared.Messages
         /// <summary>
         /// Any extensions prepared by the Authenticator.
         /// </summary>
-        [JsonProperty("exts")]
+        [JsonProperty("exts", NullValueHandling = NullValueHandling.Ignore)]
         public Extension[] Exts { get; set; }
     }
 }

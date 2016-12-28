@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UwpUaf.Client.Demo"
-    xmlns:converters="using:UwpUaf.Client.Demo.Converters"
+    xmlns:converters="using:UwpUaf.Shared.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -21,7 +21,7 @@
                         <StackPanel>
                             <TextBlock Text="{Binding AppInfo.DisplayInfo.DisplayName}" Style="{StaticResource TitleTextBlockStyle}" Padding="10,0,0,0"></TextBlock>
                             <TextBlock Text="{Binding AppInfo.PackageFamilyName}" Style="{StaticResource SubtitleTextBlockStyle}" Padding="10,0,0,0"></TextBlock>
-                            <ListView ItemsSource="{Binding AsmResponse.ResponseData.Authenticators}">
+                            <ListView ItemsSource="{Binding GetInfoOut.Authenticators}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>

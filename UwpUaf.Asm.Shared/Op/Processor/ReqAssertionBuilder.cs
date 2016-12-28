@@ -7,14 +7,15 @@ using Fido.Uaf.Shared.Tlv;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
+using UwpUaf.Shared;
 
 namespace UwpUaf.Asm.Shared.Op.Processor
 {
     public class ReqAssertionBuilder
     {
-        private readonly IAuthenticator authenticator;
-        private readonly IBuffer publicKeyBuffer;
-        private readonly IBuffer fcParams;
+        readonly IAuthenticator authenticator;
+        readonly IBuffer publicKeyBuffer;
+        readonly IBuffer fcParams;
 
         public ReqAssertionBuilder(IAuthenticator authenticator, IBuffer publicKeyBuffer, IBuffer fcParams)
         {
@@ -23,13 +24,13 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             this.fcParams = fcParams;
         }
 
-        public async Task<string> GetAssertions()
+        public async Task<string> GetAssertionsAsync(TagTypes attestation)
         {
-            using (var s = new MemoryStream()) 
+            using (var s = new MemoryStream())
             {
                 using (var bw = new BinaryWriter(s))
                 {
-                    var regAssertion = await GetRegAssertionAsync();
+                    var regAssertion = await GetRegAssertionAsync(attestation);
 
                     bw.Write(EncodeInt((int)TagTypes.TagUafv1RegAssertion));
                     bw.Write(EncodeInt(regAssertion.Length));
@@ -37,14 +38,12 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                 }
 
                 //return Base64 url save encoded string of s.ToArray()
-                return Convert.ToBase64String(s.ToArray())
-                    .TrimEnd('=')
-                    .Replace('+', '-')
-                    .Replace('/', '_');
+                var base64UrlString = s.ToArray().ConvertToBase64UrlString();
+                return base64UrlString;
             }
         }
 
-        private async Task<byte[]> GetRegAssertionAsync()
+        async Task<byte[]> GetRegAssertionAsync(TagTypes attestation)
         {
             using (var s = new MemoryStream())
             {
@@ -55,8 +54,18 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                     bw.Write(EncodeInt(signedDataValue.Length));
                     bw.Write(signedDataValue);
 
-                    bw.Write(EncodeInt((int)TagTypes.TagAttestationBasicFull));
-                    var value = await GetAttestationBasicFullAsync(signedDataValue);
+                    var value = new byte[0];
+                    if (attestation == TagTypes.TagAttestationBasicFull)
+                    {
+                        bw.Write(EncodeInt((int)TagTypes.TagAttestationBasicFull));
+                        value = await GetAttestationBasicFullAsync(signedDataValue);
+                    }
+                    else if (attestation == TagTypes.TagAttestationBasicSurrogate)
+                    {
+                        bw.Write(EncodeInt((int)TagTypes.TagAttestationBasicSurrogate));
+                        value = await GetAttestationBasicSurrogateAsync(signedDataValue);
+                    }
+
                     bw.Write(EncodeInt(value.Length));
                     bw.Write(value);
                 }
@@ -65,7 +74,7 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             }
         }
 
-        private byte[] GetSignedData()
+        byte[] GetSignedData()
         {
             using (var s = new MemoryStream())
             {
@@ -75,7 +84,7 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                     int length;
 
                     bw.Write(EncodeInt((int)TagTypes.TagAaid));
-                    value = GetAaid();
+                    value = Aaid;
                     length = value.Length;
                     bw.Write(EncodeInt(length));
                     bw.Write(value);
@@ -114,13 +123,13 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                     bw.Write(value);
 
                     bw.Write(EncodeInt((int)TagTypes.TagCounters));
-                    value = GetCounters();
+                    value = Counters;
                     length = value.Length;
                     bw.Write(EncodeInt(length));
                     bw.Write(value);
 
                     bw.Write(EncodeInt((int)TagTypes.TagPubKey));
-                    value = GetPubKeyRawBytes();
+                    value = PubKeyRawBytes;
                     length = value.Length;
                     bw.Write(EncodeInt(length));
                     bw.Write(value);
@@ -130,34 +139,40 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             }
         }
 
-        private byte[] GetPubKeyRawBytes()
+        byte[] PubKeyRawBytes
         {
-            byte[] ret;
-            CryptographicBuffer.CopyToByteArray(publicKeyBuffer, out ret);
-
-            return ret;
-        }
-
-        private byte[] GetCounters()
-        {
-            using (var s = new MemoryStream())
+            get
             {
-                using (var bw = new BinaryWriter(s))
-                {
-                    bw.Write(EncodeInt(0));
-                    bw.Write(EncodeInt(1));
-                    bw.Write(EncodeInt(0));
-                    bw.Write(EncodeInt(1));
-                }
+                byte[] ret;
+                CryptographicBuffer.CopyToByteArray(publicKeyBuffer, out ret);
 
-                return s.ToArray();
+                return ret;
             }
         }
 
-        private byte[] GetFcSha256Hash(IBuffer fcParams)
+        byte[] Counters
+        {
+            get
+            {
+                using (var s = new MemoryStream())
+                {
+                    using (var bw = new BinaryWriter(s))
+                    {
+                        bw.Write(EncodeInt(0));
+                        bw.Write(EncodeInt(1));
+                        bw.Write(EncodeInt(0));
+                        bw.Write(EncodeInt(1));
+                    }
+
+                    return s.ToArray();
+                }
+            }
+        }
+
+        static byte[] GetFcSha256Hash(IBuffer fcp)
         {
             var objHash = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256).CreateHash();
-            objHash.Append(fcParams);
+            objHash.Append(fcp);
             var hashBuffer = objHash.GetValueAndReset();
             byte[] ret;
             CryptographicBuffer.CopyToByteArray(hashBuffer, out ret);
@@ -165,12 +180,9 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             return ret;
         }
 
-        private byte[] GetAaid()
-        {
-            return Encoding.ASCII.GetBytes(this.authenticator.Aaid);
-        }
+        byte[] Aaid => Encoding.ASCII.GetBytes(this.authenticator.Aaid);
 
-        private async Task<byte[]> GetAttestationBasicFullAsync(byte[] signedDataValue)
+        async Task<byte[]> GetAttestationBasicFullAsync(byte[] signedDataValue)
         {
             using (var s = new MemoryStream())
             {
@@ -197,7 +209,27 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             }
         }
 
-        private async Task<byte[]> GetSignatureAsync(byte[] signedDataValue)
+        async Task<byte[]> GetAttestationBasicSurrogateAsync(byte[] signedDataValue)
+        {
+            using (var s = new MemoryStream())
+            {
+                using (var bw = new BinaryWriter(s))
+                {
+                    byte[] value;
+                    int length;
+
+                    bw.Write(EncodeInt((int)TagTypes.TagSignature));
+                    value = await GetSignatureAsync(signedDataValue);
+                    length = value.Length;
+                    bw.Write(EncodeInt(length));
+                    bw.Write(value);
+                }
+
+                return s.ToArray();
+            }
+        }
+
+        async Task<byte[]> GetSignatureAsync(byte[] signedDataValue)
         {
             var signature = await authenticator.SignAsync(CryptographicBuffer.CreateFromByteArray(signedDataValue));
             byte[] ret;
@@ -206,7 +238,7 @@ namespace UwpUaf.Asm.Shared.Op.Processor
             return ret;
         }
 
-        private static byte[] EncodeInt(int id)
+        static byte[] EncodeInt(int id)
         {
             var bytes = new byte[2];
             bytes[0] = (byte)(id & 0x00ff);

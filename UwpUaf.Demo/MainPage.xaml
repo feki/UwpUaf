@@ -8,10 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
+        <StackPanel Margin="15,10,10,10">
+            <HyperlinkButton x:Name="RegisterTest" Click="RegisterTest_Click">Register Test</HyperlinkButton>
             <HyperlinkButton Click="UwpUafAuthenticator_Click">UwpUaf Authenticator (MicrosoftPassport)</HyperlinkButton>
             <HyperlinkButton Click="SignatureTest_Click">Windows Hello (MicrosoftPassport) Signatre Test</HyperlinkButton>
-            <Button Click="Button_Click">GetInfo</Button>
+            <HyperlinkButton Click="Button_ClickAsync">GetInfo</HyperlinkButton>
         </StackPanel>
     </Grid>
 </Page>

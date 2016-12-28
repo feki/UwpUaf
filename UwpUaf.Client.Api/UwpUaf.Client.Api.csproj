@@ -109,14 +109,27 @@
   <ItemGroup>
     <Compile Include="ClientApi.cs" />
     <Compile Include="ClientApiSettings.cs" />
+    <Compile Include="ClientProtocolMessageProcessor.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DiscoveryData.cs" />
     <Compile Include="ErrorCode.cs" />
+    <Compile Include="Facet\FacetIdList.cs" />
+    <Compile Include="Facet\FacetIdListResponse.cs" />
     <Compile Include="FidoOperationErrorCodeException.cs" />
     <Compile Include="IClientApi.cs" />
     <Compile Include="IClientDiscoverOperationHandler.cs" />
+    <Compile Include="IClientProtocolOperationHandlers.cs" />
     <Compile Include="IClientServiceOperationHandlers.cs" />
-    <Compile Include="UwpUafClientApi.cs" />
+    <Compile Include="IOnAuthenticatorSelectedHandler.cs" />
+    <Compile Include="IOnCancelationHandler.cs" />
+    <Compile Include="Operations\AuthOperation.cs" />
+    <Compile Include="Operations\DeregOperation.cs" />
+    <Compile Include="IOnConfirmationHandler.cs" />
+    <Compile Include="Operations\OperationBase.cs" />
+    <Compile Include="Operations\RegOperation.cs" />
+    <Compile Include="Operations\UafMessageUtils.cs" />
+    <Compile Include="UafMessageUtils.cs" />
+    <Compile Include="UafMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UwpUaf.Asm.Client.Api.rd.xml" />
   </ItemGroup>
@@ -124,6 +137,14 @@
     <ProjectReference Include="..\Fido.Uaf.Shared\Fido.Uaf.Shared.csproj">
       <Project>{820142e8-c1c6-441d-9e00-a28925679685}</Project>
       <Name>Fido.Uaf.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UwpUaf.Asm.Api\UwpUaf.Asm.Api.csproj">
+      <Project>{0E1FCCA0-B6EC-4190-BAF4-FC3EAAA44A0F}</Project>
+      <Name>UwpUaf.Asm.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UwpUaf.Shared\UwpUaf.Shared.csproj">
+      <Project>{42a923cf-d917-485d-978b-8d2305d10150}</Project>
+      <Name>UwpUaf.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

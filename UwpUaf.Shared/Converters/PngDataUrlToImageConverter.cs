@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace UwpUaf.Client.Demo.Converters
+namespace UwpUaf.Shared.Converters
 {
-    class PngDataUrlToImageConverter : IValueConverter
+    public class PngDataUrlToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

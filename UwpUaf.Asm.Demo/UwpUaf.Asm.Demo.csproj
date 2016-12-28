@@ -127,9 +127,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UwpUaf.Asm.Api\UwpUaf.Asm.Api.csproj">
+      <Project>{0E1FCCA0-B6EC-4190-BAF4-FC3EAAA44A0F}</Project>
+      <Name>UwpUaf.Asm.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UwpUaf.Asm.RtC\UwpUaf.Asm.RtC.csproj">
       <Project>{6d125d79-2946-41f3-aad3-f303c9ef34c4}</Project>
       <Name>UwpUaf.Asm.RtC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UwpUaf.Asm.Shared\UwpUaf.Asm.Shared.csproj">
+      <Project>{B4B18167-61EE-4BF3-BCED-BBF324E9FF0B}</Project>
+      <Name>UwpUaf.Asm.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

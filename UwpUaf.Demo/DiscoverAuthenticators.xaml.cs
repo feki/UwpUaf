@@ -30,7 +30,7 @@ namespace UwpUaf.Demo
         {
             this.InitializeComponent();
 
-            uwpUafClientApi = new ClientApi();
+            uwpUafClientApi = ClientApi.Instance;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

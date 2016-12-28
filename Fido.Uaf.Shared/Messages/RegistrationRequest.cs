@@ -16,5 +16,10 @@ namespace Fido.Uaf.Shared.Messages
         /// </remarks>
         [JsonProperty("username", Required = Required.Always)]
         public string Username { get; set; }
+
+        public override bool ValidateMandatoryFields()
+        {
+            return base.ValidateMandatoryFields() && Username != null;
+        }
     }
 }

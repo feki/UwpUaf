@@ -15,5 +15,10 @@ namespace Fido.Uaf.Shared.Messages
         /// </summary>
         [JsonProperty("policy", Required = Required.Always)]
         public Policy Policy { get; set; }
+
+        public override bool ValidateMandatoryFields()
+        {
+            return base.ValidateMandatoryFields() && Challenge != null && Policy != null && Policy.Accepted != null;
+        }
     }
 }

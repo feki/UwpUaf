@@ -3,7 +3,7 @@
 namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class AuthenticationResponse: OperationResponseBase
     {

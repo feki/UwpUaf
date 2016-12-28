@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UwpUaf.Asm.Shared
 {
-    public class Class1
+    interface IOnConfirmationHandler : IOnCancelationHandler
     {
+        Task OnConfirmationAsync();
     }
 }

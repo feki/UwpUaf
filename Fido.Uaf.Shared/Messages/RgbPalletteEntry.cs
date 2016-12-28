@@ -5,21 +5,21 @@ namespace Fido.Uaf.Shared.Messages
     public class RgbPalletteEntry
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        [JsonProperty("r")]
+        [JsonProperty("r", NullValueHandling = NullValueHandling.Ignore)]
         public ushort Red { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        [JsonProperty("g")]
+        [JsonProperty("g", NullValueHandling = NullValueHandling.Ignore)]
         public ushort Green { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        [JsonProperty("b")]
+        [JsonProperty("b", NullValueHandling = NullValueHandling.Ignore)]
         public ushort Blue { get; set; }
     }
 }

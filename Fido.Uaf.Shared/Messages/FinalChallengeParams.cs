@@ -3,7 +3,7 @@
 namespace Fido.Uaf.Shared.Messages
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class FinalChallengeParams
     {
@@ -26,7 +26,7 @@ namespace Fido.Uaf.Shared.Messages
         /// The value is determined by the FIDO UAF Client and it depends on the calling application.
         /// See [FIDOAppIDAndFacets](https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-appid-and-facets-v1.0-ps-20141208.html)
         /// for more details. Security Relevance: The `FacetId` is determined by the FIDO UAF Client
-        /// and verified against the list of trusted facets retrieved by dereferencing the `AppId` 
+        /// and verified against the list of trusted facets retrieved by dereferencing the `AppId`
         /// of the calling application.
         /// </summary>
         /// <remarks>
@@ -37,7 +37,7 @@ namespace Fido.Uaf.Shared.Messages
 
         /// <summary>
         /// Contains the TLS information to be sent by the FIDO Client to the FIDO Server,
-        /// binding the TLS channel to the FIDO operation. 
+        /// binding the TLS channel to the FIDO operation.
         /// </summary>
         [JsonProperty("channelBinding", Required = Required.Always)]
         public ChannelBinding ChannelBinding { get; set; }

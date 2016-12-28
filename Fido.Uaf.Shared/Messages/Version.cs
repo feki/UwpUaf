@@ -15,7 +15,7 @@ namespace Fido.Uaf.Shared.Messages
         /// For FIDO 1.0 specification:
         /// Major version MUST be 1.
         /// </note>
-        [JsonProperty("major")]
+        [JsonProperty("major", NullValueHandling = NullValueHandling.Ignore)]
         public ushort Major { get; set; } = 1;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Fido.Uaf.Shared.Messages
         /// For FIDO 1.0 specification:
         /// Minor version MUST be 0.
         /// </note>
-        [JsonProperty("minor")]
+        [JsonProperty("minor", NullValueHandling = NullValueHandling.Ignore)]
         public ushort Minor { get; set; } = 1;
 
         public Version Clone()
