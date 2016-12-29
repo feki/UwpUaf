@@ -74,6 +74,7 @@ namespace UwpUaf.Asm.Api
             // Process asm request
             var asmResponse = await ProcessAsmRequestAsync(asmRequest);
 
+
             var result = new ValueSet
             {
                 { Constants.AsmMessageKey, JsonConvert.SerializeObject(asmResponse) }

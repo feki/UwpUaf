@@ -9,7 +9,7 @@ using UwpUaf.Client.Api;
 
 namespace UwpUaf.Client.Demo.ClientApi
 {
-    class RegistrationParams
+    class RegistrationParameter
     {
 
         public RegistrationRequest Reg { get; private set; }
@@ -18,7 +18,7 @@ namespace UwpUaf.Client.Demo.ClientApi
 
         public IOnAuthenticatorSelectedHandler Handler { get; private set; }
 
-        public RegistrationParams(RegistrationRequest reg, AuthenticatorInfo[] availableAuthenticators, IOnAuthenticatorSelectedHandler handler)
+        public RegistrationParameter(RegistrationRequest reg, AuthenticatorInfo[] availableAuthenticators, IOnAuthenticatorSelectedHandler handler)
         {
             this.Reg = reg;
             this.AvailableAuthenticators = availableAuthenticators;

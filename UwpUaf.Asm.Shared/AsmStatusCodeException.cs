@@ -23,5 +23,13 @@ namespace UwpUaf.Asm.Shared
         public AsmStatusCodeException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        public StatusCode StatusCode
+        {
+            get
+            {
+                return statusCode;
+            }
+        }
     }
 }

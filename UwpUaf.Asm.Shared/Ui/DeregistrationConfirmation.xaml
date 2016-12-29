@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="UwpUaf.Asm.Shared.Ui.DeregistrationConfirmation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpUaf.Asm.Shared.Ui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:converters="using:UwpUaf.Shared.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:PngDataUrlToImageConverter x:Key="PngDataUrlToImageConverter" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="15,10,10,10">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Deregistration confirmation</TextBlock>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding AuthenticatorInfo.Title}"></TextBlock>
+            <TextBlock DataContext="{Binding DeregisterIn}" TextWrapping="Wrap">
+                <Run>Application ID: </Run>
+                <Run FontWeight="Bold" Text="{Binding AppId}" />
+                <LineBreak />
+                <Run>Key ID: </Run>
+                <Run FontWeight="Bold" Text="{Binding KeyId}" />
+                <LineBreak />
+                <LineBreak />
+            </TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="15,10,10,10">
+            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="Cancel" Click="Cancel_ClickAsync">Cancel</Button>
+            <Button Margin="10" HorizontalAlignment="Center" x:Name="Confirm" Click="Confirm_ClickAsync" Padding="2">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Height="120" Width="120" Source="{Binding AuthenticatorInfo.Icon, Converter={StaticResource PngDataUrlToImageConverter}}" />
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center">Confirm</TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

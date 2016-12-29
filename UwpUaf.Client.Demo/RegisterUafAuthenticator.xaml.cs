@@ -10,15 +10,15 @@ namespace UwpUaf.Client.Demo
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class RegisterUafAuthenticaror : Page
+    public sealed partial class RegisterUafAuthenticator : Page
     {
         readonly ObservableCollection<AuthenticatorInfo> authenticatorInfoItems = new ObservableCollection<AuthenticatorInfo>();
         readonly Api.IClientApi clientApi;
-        RegistrationParams registrationParams;
+        RegistrationParameter registrationParams;
 
-        public RegisterUafAuthenticaror()
+        public RegisterUafAuthenticator()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             clientApi = Api.ClientApi.Instance;
             DataContext = this;
@@ -36,9 +36,9 @@ namespace UwpUaf.Client.Demo
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is RegistrationParams)
+            if (e.Parameter is RegistrationParameter)
             {
-                registrationParams = e.Parameter as RegistrationParams;
+                registrationParams = e.Parameter as RegistrationParameter;
                 foreach (var auth in registrationParams.AvailableAuthenticators)
                 {
                     authenticatorInfoItems.Add(auth);

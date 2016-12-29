@@ -10,9 +10,11 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="15,10,10,10">
             <HyperlinkButton x:Name="RegisterTest" Click="RegisterTest_Click">Register Test</HyperlinkButton>
-            <HyperlinkButton Click="UwpUafAuthenticator_Click">UwpUaf Authenticator (MicrosoftPassport)</HyperlinkButton>
-            <HyperlinkButton Click="SignatureTest_Click">Windows Hello (MicrosoftPassport) Signatre Test</HyperlinkButton>
-            <HyperlinkButton Click="Button_ClickAsync">GetInfo</HyperlinkButton>
+            <HyperlinkButton x:Name="AuthenticateTest" Click="AuthenticateTest_Click">Authenticate Test</HyperlinkButton>
+            <HyperlinkButton x:Name="DeregisterTest" Click="DeregisterTest_Click">Deregister Test</HyperlinkButton>
+            <HyperlinkButton Click="UwpUafAuthenticator_Click" Visibility="Collapsed">UwpUaf Authenticator (MicrosoftPassport)</HyperlinkButton>
+            <HyperlinkButton Click="SignatureTest_Click" Visibility="Collapsed">Windows Hello (MicrosoftPassport) Signatre Test</HyperlinkButton>
+            <HyperlinkButton Click="Button_ClickAsync" Visibility="Collapsed">GetInfo</HyperlinkButton>
         </StackPanel>
     </Grid>
 </Page>

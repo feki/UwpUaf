@@ -21,14 +21,47 @@ namespace UwpUaf.Asm.Shared.AsmApi
             this.frame = frame;
         }
 
-        public Task<AsmResponse<AuthenticateOut>> ProcessAuthenticateRequestAsync(AsmRequest<AuthenticateIn> asmRequest)
+        public async Task<AsmResponse<AuthenticateOut>> ProcessAuthenticateRequestAsync(AsmRequest<AuthenticateIn> asmRequest)
         {
-            throw new NotImplementedException();
+            var response = new AsmResponse<AuthenticateOut>();
+            try
+            {
+                var auth = authenticatorFactory.GetAuthenticatorInstance(asmRequest.AuthenticatorIndex);
+                auth.Frame = frame;
+                var authenticateOut = await auth.AuthenticateAsync(asmRequest.Args);
+                if (authenticateOut != null)
+                {
+                    response.ResponseData = authenticateOut;
+                    response.StatusCode = StatusCode.UafAsmStatusOk;
+                }
+                else
+                {
+                    response.StatusCode = StatusCode.UafAsmStatusError;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = ex is AsmStatusCodeException ? ((AsmStatusCodeException)ex).StatusCode : StatusCode.UafAsmStatusError;
+            }
+
+            return response;
         }
 
-        public Task<AsmResponseBase> ProcessDeregisterRequestAsync(AsmRequest<DeregisterIn> asmRequest)
+        public async Task<AsmResponseBase> ProcessDeregisterRequestAsync(AsmRequest<DeregisterIn> asmRequest)
         {
-            throw new NotImplementedException();
+            var response = new AsmResponseBase();
+            try
+            {
+                var auth = authenticatorFactory.GetAuthenticatorInstance(asmRequest.AuthenticatorIndex);
+                auth.Frame = frame;
+                response.StatusCode = await auth.DeregisterAsync(asmRequest.Args) ? StatusCode.UafAsmStatusOk : StatusCode.UafAsmStatusError;
+            }
+            catch (Exception)
+            {
+                response.StatusCode = StatusCode.UafAsmStatusError;
+            }
+
+            return response;
         }
 
         public async Task<AsmResponse<RegisterOut>> ProcessRegisterRequestAsync(AsmRequest<RegisterIn> asmRequest)

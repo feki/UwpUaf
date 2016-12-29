@@ -2,9 +2,9 @@
 
 namespace UwpUaf.Asm.Shared.Ui
 {
-    class RegistrationConfirmationParameter
+    class AuthenticationConfirmationParameter
     {
-        public RegisterIn RegisterIn { get; set; }
+        public AuthenticateIn AuthenticateIn { get; set; }
 
         public AuthenticatorInfo AuthenticatorInfo { get; set; }
 

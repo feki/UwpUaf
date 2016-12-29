@@ -107,7 +107,7 @@ namespace UwpUaf.Asm.Api
             };
 
             var result = await Launcher.LaunchUriForResultsAsync(uri, options, data);
-            if (result.Status != LaunchUriStatus.Success)
+            if (result.Status != LaunchUriStatus.Success || result.Result == null)
             {
                 throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
             }

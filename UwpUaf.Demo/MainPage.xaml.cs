@@ -21,30 +21,19 @@ namespace UwpUaf.Demo
 
 #pragma warning disable CC0057 // Unused parameters
         async void Button_ClickAsync(object sender, RoutedEventArgs e)
-#pragma warning restore CC0057 // Unused parameters
         {
             var discovery = await fidoClientApi.DiscoverAsync();
         }
 
-#pragma warning disable CC0057 // Unused parameters
-        private void RegisterTest_Click(object sender, RoutedEventArgs e)
-#pragma warning restore CC0057 // Unused parameters
-        {
-            Frame.Navigate(typeof(RegisterTest));
-        }
+        private void RegisterTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(RegisterTest));
 
-#pragma warning disable CC0057 // Unused parameters
-        void SignatureTest_Click(object sender, RoutedEventArgs e)
-#pragma warning restore CC0057 // Unused parameters
-        {
-            Frame.Navigate(typeof(WindowsHelloSignatureTest));
-        }
+        void SignatureTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(WindowsHelloSignatureTest));
 
-#pragma warning disable CC0057 // Unused parameters
-        void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e)
+        void UwpUafAuthenticator_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(UwpUafAuthenticator));
+
+        void DeregisterTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(DeregisterTest));
+
+        void AuthenticateTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(AuthenticateTest));
 #pragma warning restore CC0057 // Unused parameters
-        {
-            Frame.Navigate(typeof(UwpUafAuthenticator));
-        }
     }
 }

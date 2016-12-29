@@ -95,8 +95,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AuthenticateUafAuthenticator.xaml.cs">
+      <DependentUpon>AuthenticateUafAuthenticator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientApi\AuthenticationParameter.cs" />
     <Compile Include="ClientApi\ClientProtocolOperationHandlers.cs" />
-    <Compile Include="ClientApi\RegistrationParams.cs" />
+    <Compile Include="ClientApi\DeregistrationParameter.cs" />
+    <Compile Include="ClientApi\RegistrationParameter.cs" />
+    <Compile Include="DeregisterUafAuthenticator.xaml.cs">
+      <DependentUpon>DeregisterUafAuthenticator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GetInfoPage.xaml.cs">
       <DependentUpon>GetInfoPage.xaml</DependentUpon>
     </Compile>
@@ -104,8 +112,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterUafAuthenticaror.xaml.cs">
-      <DependentUpon>RegisterUafAuthenticaror.xaml</DependentUpon>
+    <Compile Include="RegisterUafAuthenticator.xaml.cs">
+      <DependentUpon>RegisterUafAuthenticator.xaml</DependentUpon>
     </Compile>
     <Compile Include="DelegateCommand.cs" />
   </ItemGroup>
@@ -130,6 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AuthenticateUafAuthenticator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeregisterUafAuthenticator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GetInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,7 +154,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RegisterUafAuthenticaror.xaml">
+    <Page Include="RegisterUafAuthenticator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

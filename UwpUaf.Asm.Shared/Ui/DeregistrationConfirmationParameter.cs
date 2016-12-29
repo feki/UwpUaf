@@ -2,12 +2,12 @@
 
 namespace UwpUaf.Asm.Shared.Ui
 {
-    class RegistrationConfirmationParameter
+    class DeregistrationConfirmationParameter
     {
-        public RegisterIn RegisterIn { get; set; }
-
         public AuthenticatorInfo AuthenticatorInfo { get; set; }
 
         public IOnConfirmationHandler ConfirmationHandler { get; set; }
+
+        public DeregisterIn DeregisterIn { get; set; }
     }
 }

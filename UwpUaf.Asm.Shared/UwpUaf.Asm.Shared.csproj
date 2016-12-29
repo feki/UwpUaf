@@ -120,10 +120,18 @@
     <Compile Include="Op\Processor\AuthAssertionBuilder.cs" />
     <Compile Include="Op\Processor\ReqAssertionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ui\FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml.cs">
-      <DependentUpon>FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml</DependentUpon>
+    <Compile Include="Ui\DeregistrationConfirmation.xaml.cs">
+      <DependentUpon>DeregistrationConfirmation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\FingerprintAuthenticatorSimulatorAuthenticationConfirmation.xaml.cs">
+      <DependentUpon>FingerprintAuthenticatorSimulatorAuthenticationConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\FingerprintAuthenticatorsSimulatorRegistrationConfirmation.xaml.cs">
+      <DependentUpon>FingerprintAuthenticatorsSimulatorRegistrationConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\AuthenticationConfirmationParameter.cs" />
     <Compile Include="Ui\RegistrationConfirmationParameter.cs" />
+    <Compile Include="Ui\DeregistrationConfirmationParameter.cs" />
     <EmbeddedResource Include="Properties\UwpUaf.Asm.Shared.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +149,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ui\FingerprintAuthenticatorSimulatorRegistrationConfirmation.xaml">
+    <Page Include="Ui\DeregistrationConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\FingerprintAuthenticatorSimulatorAuthenticationConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\FingerprintAuthenticatorsSimulatorRegistrationConfirmation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

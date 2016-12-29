@@ -100,7 +100,7 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                             w.Write(new byte[] { 0x00, 0x00 });
                             // 1 byte Authentication Mode;
                             w.Write((byte)0x01);
-                            w.Write(EncodeInt((int)AuthenticationAlgorithms.UafAlgSignSecp256r1EcdsaSha256Der));
+                            w.Write(EncodeInt((int)authenticator.GetAuthenticatorInfo().AuthenticationAlgorithm));
                             w.Write(EncodeInt((int)PublicKeyRepresentationFormats.UafAlgKeyEccX962Der));
                         }
 

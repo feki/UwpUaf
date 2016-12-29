@@ -95,6 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AuthenticateTest.xaml.cs">
+      <DependentUpon>AuthenticateTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeregisterTest.xaml.cs">
+      <DependentUpon>DeregisterTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DiscoverAuthenticators.xaml.cs">
       <DependentUpon>DiscoverAuthenticators.xaml</DependentUpon>
     </Compile>
@@ -134,6 +140,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AuthenticateTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeregisterTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DiscoverAuthenticators.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -175,9 +175,9 @@ namespace UwpUaf.Client.Api
             };
 
             var result = await SendOperationAsync(message, channelBinding);
-            var authenticationResponeJson = result.UafProtocolMessage;
+            var authenticationResponeJson = UafMessageUtils.GetUafV10Message(result.UafProtocolMessage);
 
-            return JsonConvert.DeserializeObject<AuthenticationResponse>(authenticationResponeJson);
+            return authenticationResponeJson.ToObject<AuthenticationResponse>();
         }
 
         public async Task DeregisterAsync(DeregistrationRequest deregistrationRequest, ChannelBinding channelBinding)

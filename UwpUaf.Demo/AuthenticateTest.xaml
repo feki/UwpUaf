@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="UwpUaf.Demo.AuthenticateTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpUaf.Demo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <StackPanel Margin="15,10,10,10">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Authentication test</TextBlock>
+                <TextBox Margin="0,10,0,0" IsReadOnly="True" x:Name="AuthenticateRequest" TextWrapping="Wrap" Text="{Binding AuthenticationRequestJson}" Header="FIDO UAF authentication request message"></TextBox>
+                <Button x:Name="ProcessAuthenticationRequest" HorizontalAlignment="Stretch" Click="ProcessAuthenticationRequest_ClickAsync" Margin="10">Process authentication request</Button>
+                <TextBlock x:Name="AuthenticateError" TextWrapping="Wrap" Text="{Binding AuthenticationError}" Margin="0,10,0,0" Foreground="Red"></TextBlock>
+                <TextBox x:Name="AuthenticateResponse" TextWrapping="Wrap" Text="{Binding AuthenticationResponseJson}" Margin="0,10,0,0" Header="FIDO UAF authentication response message"></TextBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

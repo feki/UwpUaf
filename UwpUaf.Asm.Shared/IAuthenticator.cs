@@ -21,9 +21,12 @@ namespace UwpUaf.Asm.Shared
 
         Task<AuthenticateOut> AuthenticateAsync(AuthenticateIn args);
 
+        Task<bool> DeregisterAsync(DeregisterIn args);
+
         Task<IBuffer> SignAsync(IBuffer challenge);
 
         IBuffer GetPublicKey();
+
         IBuffer GetCertificate();
     }
 }

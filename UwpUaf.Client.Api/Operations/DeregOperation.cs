@@ -34,7 +34,7 @@ namespace UwpUaf.Client.Api.Operations
 
         public async Task OnConfirmationAsync()
         {
-            var auths = await clientApi.DiscoverAsync();
+            var auths = await clientApi.GetAvailableAuthenticatorsAsync();
             foreach (var auth in DeregistrationRequest.Authenticators)
             {
                 var deregisterIn = new DeregisterIn
@@ -43,7 +43,7 @@ namespace UwpUaf.Client.Api.Operations
                     KeyId = auth.KeyId
                 };
                 var asmPackageFamilyName = clientApi.authenticatorIdToPackageFamilyName[auth.Aaid];
-                var authInfo = auths.AvailableAuthenticators.First(a => a.Aaid == auth.Aaid);
+                var authInfo = auths.First(a => a.Aaid == auth.Aaid);
                 await asmApi.DeregisterAsync(deregisterIn, asmPackageFamilyName, (ushort)authInfo.AuthenticatorIndex);
             }
 

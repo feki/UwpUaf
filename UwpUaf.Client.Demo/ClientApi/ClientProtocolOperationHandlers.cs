@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
@@ -12,28 +9,32 @@ namespace UwpUaf.Client.Demo.ClientApi
 {
     class ClientProtocolOperationHandlers : IClientProtocolOperationHandlers
     {
-        private readonly Frame frame;
+        readonly Frame frame;
 
         public ClientProtocolOperationHandlers(Frame frame)
         {
             this.frame = frame;
         }
 
-        public Task HandleAuthenticationRequestAuthenticatorSelectionAsync(AuthenticationRequest auth, AuthenticatorInfo[] registeredAuthenticators, IOnAuthenticatorSelectedHandler handler)
+        public async Task HandleAuthenticationRequestAuthenticatorSelectionAsync(AuthenticationRequest auth, AuthenticatorInfo[] registeredAuthenticators, IOnAuthenticatorSelectedHandler handler)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+            var parameter = new AuthenticationParameter(auth, registeredAuthenticators, handler);
+            frame.Navigate(typeof(AuthenticateUafAuthenticator), parameter);
         }
 
-        public Task HandleDeregistrationRequestConfirmationAsync(DeregistrationRequest dereg, IOnConfirmationHandler handler)
+        public async Task HandleDeregistrationRequestConfirmationAsync(DeregistrationRequest dereg, IOnConfirmationHandler handler)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+            var parameter = new DeregistrationParameter(dereg, handler);
+            frame.Navigate(typeof(DeregisterUafAuthenticator), parameter);
         }
 
         public async Task HandleRegistrationRequestAuthenticatorSelectionAsync(RegistrationRequest reg, AuthenticatorInfo[] availableAuthenticators, IOnAuthenticatorSelectedHandler handler)
         {
             await Task.Delay(0);
-            var parameter = new RegistrationParams(reg, availableAuthenticators, handler);
-            frame.Navigate(typeof(RegisterUafAuthenticaror), parameter);
+            var parameter = new RegistrationParameter(reg, availableAuthenticators, handler);
+            frame.Navigate(typeof(RegisterUafAuthenticator), parameter);
         }
     }
 }

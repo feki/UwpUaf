@@ -15,7 +15,7 @@ namespace UwpUaf.Asm.Shared.Ui
 
         public FingerprintAuthenticatorSimulatorRegistrationConfirmation()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             DataContext = this;
         }
