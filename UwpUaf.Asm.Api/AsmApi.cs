@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
@@ -46,8 +45,7 @@ namespace UwpUaf.Asm.Api
                 var openConnectionStatus = await appService.OpenAsync();
                 if (openConnectionStatus != AppServiceConnectionStatus.Success)
                 {
-                    // TODO: app service opening connection wasn't successful
-                    return null;
+                    throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
                 }
 
                 response = await appService.SendMessageAsync(message);

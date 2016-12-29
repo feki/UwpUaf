@@ -6,6 +6,7 @@ using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using Fido.Uaf.Shared.Tlv;
 using Org.BouncyCastle.Security;
+using UwpUaf.Asm.Api;
 using UwpUaf.Asm.Shared.Op.Processor;
 using UwpUaf.Shared;
 using Windows.Security.Cryptography;
@@ -155,7 +156,7 @@ namespace UwpUaf.Asm.Shared
         public async Task OnCancelationAsync(StatusCode statusCode = StatusCode.UafAsmStatusUserCancelled)
         {
             await Task.Delay(0);
-            promise?.TrySetException(new AsmStatusCodeException(statusCode));
+            promise?.TrySetException(new UafAsmStatusException(statusCode));
         }
 
         public async Task OnConfirmationAsync()

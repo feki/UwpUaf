@@ -1,5 +1,4 @@
 ﻿using Fido.Uaf.Shared.AuthenticatorCharacteristics;
-using Fido.Uaf.Shared.Tlv;
 using Newtonsoft.Json;
 
 namespace Fido.Uaf.Shared.Messages.Asm.Objects

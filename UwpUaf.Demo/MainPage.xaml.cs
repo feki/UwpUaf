@@ -25,7 +25,7 @@ namespace UwpUaf.Demo
             var discovery = await fidoClientApi.DiscoverAsync();
         }
 
-        private void RegisterTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(RegisterTest));
+        void RegisterTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(RegisterTest));
 
         void SignatureTest_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(WindowsHelloSignatureTest));
 

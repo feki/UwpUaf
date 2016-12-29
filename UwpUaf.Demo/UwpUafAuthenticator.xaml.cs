@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UwpUaf.Authenticator;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,7 +14,7 @@ namespace UwpUaf.Demo
     /// </summary>
     public sealed partial class UwpUafAuthenticator : Page
     {
-        private IUwpUafAuthenticator uwpUafAuthenticator;
+        IUwpUafAuthenticator uwpUafAuthenticator;
 
         public UwpUafAuthenticator()
         {
@@ -34,7 +23,7 @@ namespace UwpUaf.Demo
             this.uwpUafAuthenticator = new Authenticator.UwpUafAuthenticator();
         }
 
-        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
+        async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             var appId = this.AppId.Text;
             var challenge = CryptographicBuffer.ConvertStringToBinary(this.Challenge.Text, BinaryStringEncoding.Utf8);
@@ -45,7 +34,7 @@ namespace UwpUaf.Demo
             this.PublicKey.Text = CryptographicBuffer.EncodeToBase64String(registerResponse.PublicKey);
         }
 
-        private async void SignButton_Click(object sender, RoutedEventArgs e)
+        async void SignButton_Click(object sender, RoutedEventArgs e)
         {
             var appId = this.AppId.Text;
             var challenge = CryptographicBuffer.ConvertStringToBinary(this.Challenge.Text, BinaryStringEncoding.Utf8);
@@ -67,7 +56,7 @@ namespace UwpUaf.Demo
             VerifySignature();
         }
 
-        private void UnregisterButton_Click(object sender, RoutedEventArgs e)
+        void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -81,7 +70,7 @@ namespace UwpUaf.Demo
             }
         }
 
-        private void VerifySignature()
+        void VerifySignature()
         {
             // the original data, pulled from the textbox on screen
             var challenge = CryptographicBuffer.ConvertStringToBinary(Challenge.Text, BinaryStringEncoding.Utf8);

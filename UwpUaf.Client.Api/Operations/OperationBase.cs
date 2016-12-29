@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UwpUaf.Shared;
 using UwpUaf.Asm.Api;
 using UwpUaf.Client.Api.Facet;

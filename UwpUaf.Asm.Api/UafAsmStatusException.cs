@@ -5,11 +5,16 @@ namespace UwpUaf.Asm.Api
 {
     public class UafAsmStatusException : Exception
     {
-        public UafAsmStatusException(StatusCode code) : base()
+        public UafAsmStatusException(StatusCode statusCode) : base($"UafAsmStatusException Code={statusCode}")
         {
-            Code = code;
+            StatusCode = statusCode;
         }
 
-        public StatusCode Code { get; private set; }
+        public UafAsmStatusException(StatusCode statusCode, Exception innerException) : base($"UafAsmStatusException Code={statusCode}", innerException)
+        {
+            StatusCode = statusCode;
+        }
+
+        public StatusCode StatusCode { get; private set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
+﻿namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 {
     /// <summary>
     /// The TRANSACTION_CONFIRMATION_DISPLAY constants are flags in a bit field represented as a 16
@@ -20,7 +18,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_ANY 0x01
-        /// 
+        ///
         /// This flag MUST be set to indicate, that some form of transaction confirmation display is
         /// available on this authenticator.
         /// </summary>
@@ -28,7 +26,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_PRIVILEGED_SOFTWARE 0x02.
-        /// 
+        ///
         /// This flag MUST be set to indicate, that a software-based transaction confirmation
         /// display operating in a privileged context is available on this authenticator. A FIDO
         /// client that is capable of providing this capability MAY set this bit for all
@@ -43,7 +41,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_TEE 0x04
-        /// 
+        ///
         /// This flag SHOULD be set to indicate that the authenticator implements a transaction
         /// confirmation display in a Trusted Execution Environment ([TEE], [TEESecureDisplay](https://www.globalplatform.org/specifications.asp)).
         /// </summary>
@@ -51,7 +49,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_HARDWARE 0x08
-        /// 
+        ///
         /// This flag SHOULD be set to indicate that a transaction confirmation display based on
         /// hardware assisted capabilities is available on this authenticator.
         /// </summary>
@@ -59,7 +57,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// TRANSACTION_CONFIRMATION_DISPLAY_REMOTE 0x10
-        /// 
+        ///
         /// This flag SHOULD be set to indicate that the transaction confirmation display is
         /// provided on a distinct device from the FIDO User Device.
         /// </summary>

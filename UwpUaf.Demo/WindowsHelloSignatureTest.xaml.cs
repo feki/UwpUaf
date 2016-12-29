@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using UwpUaf.Authenticator;
 using Windows.Security.Cryptography;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using System.Text;
 using System.IO;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -20,10 +17,10 @@ namespace UwpUaf.Demo
     /// </summary>
     public sealed partial class WindowsHelloSignatureTest : Page
     {
-        private IUwpUafAuthenticator uwpUafAuthenticator;
-        private string shareText = "";
+        IUwpUafAuthenticator uwpUafAuthenticator;
+        string shareText = "";
 
-        private bool IsSupported { get; set; }
+        bool IsSupported { get; set; }
 
         public WindowsHelloSignatureTest()
         {
@@ -35,7 +32,7 @@ namespace UwpUaf.Demo
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
 
-        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
+        async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             var appId = this.AppId.Text;
             var challenge = CryptographicBuffer.ConvertStringToBinary(this.Challenge.Text, BinaryStringEncoding.Utf8);
@@ -43,7 +40,7 @@ namespace UwpUaf.Demo
             await uwpUafAuthenticator.RegisterAsync(appId, challenge);
         }
 
-        private async void SignButton_Click(object sender, RoutedEventArgs e)
+        async void SignButton_Click(object sender, RoutedEventArgs e)
         {
             var appId = this.AppId.Text;
             var challenge = CryptographicBuffer.ConvertStringToBinary(this.Challenge.Text, BinaryStringEncoding.Utf8);
@@ -90,7 +87,7 @@ namespace UwpUaf.Demo
             //VerifySignature();
         }
 
-        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var request = args.Request;
             request.Data.Properties.Title = "Share Text Example";
@@ -98,7 +95,7 @@ namespace UwpUaf.Demo
             request.Data.SetData(StandardDataFormats.Text, shareText);
         }
 
-        private void UnregisterButton_Click(object sender, RoutedEventArgs e)
+        void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UwpUaf.Asm.Api;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
@@ -151,13 +150,13 @@ namespace UwpUaf.Client.Api
             var result = await Launcher.LaunchUriForResultsAsync(uri, options, data);
             if (result.Status != LaunchUriStatus.Success)
             {
-                // TODO:
+                throw new FidoOperationErrorCodeException(ErrorCode.Unknown);
             }
 
             var retUafIntentType = result.Result[Constants.UafIntentTypeKey] as string;
             if (retUafIntentType != Constants.UafIntentType.UafOperationResult)
             {
-                // TODO:
+                throw new FidoOperationErrorCodeException(ErrorCode.ProtocolError);
             }
 
             CheckResponseErrorCode(result.Result);

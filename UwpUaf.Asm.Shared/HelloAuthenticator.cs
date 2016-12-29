@@ -6,6 +6,7 @@ using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using Fido.Uaf.Shared.Tlv;
 using Org.BouncyCastle.Security;
+using UwpUaf.Asm.Api;
 using UwpUaf.Asm.Shared.Op.Processor;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
@@ -84,15 +85,15 @@ namespace UwpUaf.Asm.Shared
             var keyCredentialRetrievalResult = await KeyCredentialManager.OpenAsync(appId);
             if (keyCredentialRetrievalResult.Status == KeyCredentialStatus.NotFound)
             {
-                throw new AsmStatusCodeException(StatusCode.UafAsmStatusAccessDenied);
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusAccessDenied);
             }
             else if (keyCredentialRetrievalResult.Status == KeyCredentialStatus.UserCanceled)
             {
-                throw new AsmStatusCodeException(StatusCode.UafAsmStatusUserCancelled);
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusUserCancelled);
             }
             else if (keyCredentialRetrievalResult.Status != KeyCredentialStatus.Success)
             {
-                throw new AsmStatusCodeException(StatusCode.UafAsmStatusError);
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
             }
 
             userCredential = keyCredentialRetrievalResult.Credential;
@@ -174,7 +175,7 @@ namespace UwpUaf.Asm.Shared
         public async Task OnCancelationAsync(StatusCode statusCode = StatusCode.UafAsmStatusUserCancelled)
         {
             await Task.Delay(0);
-            promise?.TrySetException(new AsmStatusCodeException(statusCode));
+            promise?.TrySetException(new UafAsmStatusException(statusCode));
         }
 
         public async Task OnConfirmationAsync()
@@ -190,7 +191,18 @@ namespace UwpUaf.Asm.Shared
 
             // Create a new KeyCredential for the user on the device.
             var keyCredentialRetrievalResult = await KeyCredentialManager.RequestCreateAsync(appId, KeyCredentialCreationOption.ReplaceExisting);
-            //keyCredentialRetrievalResult.CheckStatus();
+            if (keyCredentialRetrievalResult.Status == KeyCredentialStatus.NotFound)
+            {
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusAccessDenied);
+            }
+            else if (keyCredentialRetrievalResult.Status == KeyCredentialStatus.UserCanceled)
+            {
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusUserCancelled);
+            }
+            else if (keyCredentialRetrievalResult.Status != KeyCredentialStatus.Success)
+            {
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
+            }
 
             // User has autheniticated with Windows Hello and the key credential is created.
             userCredential = keyCredentialRetrievalResult.Credential;

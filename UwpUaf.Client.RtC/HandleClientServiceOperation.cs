@@ -12,9 +12,9 @@ namespace UwpUaf.Client.RtC
 {
     public sealed class HandleClientServiceOperation : IBackgroundTask
     {
-        private IAsmApi asmApi;
-        private AppServiceConnection connection;
-        private BackgroundTaskDeferral serviceDeferral;
+        IAsmApi asmApi;
+        AppServiceConnection connection;
+        BackgroundTaskDeferral serviceDeferral;
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -30,7 +30,7 @@ namespace UwpUaf.Client.RtC
             connection.RequestReceived += OnRequestReceivedAsync;
         }
 
-        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             if (serviceDeferral != null)
             {
@@ -40,7 +40,7 @@ namespace UwpUaf.Client.RtC
             }
         }
 
-        private async void OnRequestReceivedAsync(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+        async void OnRequestReceivedAsync(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
             //Get a deferral so we can use an awaitable API to respond to the message
             var messageDeferral = args.GetDeferral();

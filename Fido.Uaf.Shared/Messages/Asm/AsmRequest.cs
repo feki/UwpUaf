@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Fido.Uaf.Shared.Messages.Asm
 {
@@ -10,7 +9,7 @@ namespace Fido.Uaf.Shared.Messages.Asm
     {
         /// <summary>
         /// Request-specific arguments. If set, this attribute MAY take one of the following types:
-        /// 
+        ///
         /// * RegisterIn
         /// * AuthenticateIn
         /// * DeregisterIn

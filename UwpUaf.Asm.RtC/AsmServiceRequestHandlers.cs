@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using UwpUaf.Asm.Api;
 using UwpUaf.Asm.Shared;
-//using UwpUaf.HelloAuthenticator.Shared;
 
 namespace UwpUaf.Asm.RtC
 {
@@ -23,10 +19,7 @@ namespace UwpUaf.Asm.RtC
         public async Task<AsmResponse<GetInfoOut>> ProcessGetInfoRequestAsync(AsmRequestBase asmRequest)
         {
             const StatusCode statusCode = StatusCode.UafAsmStatusOk;
-            //AuthenticatorsInfo.InitializeAuthenticators();
 
-
-            //var list = AuthenticatorsInfo.GetAuthenticatorInfoList();
             var list = authenticatorFactory.GetAuthenticatorInfoList();
             var getInfoOut = new GetInfoOut
             {

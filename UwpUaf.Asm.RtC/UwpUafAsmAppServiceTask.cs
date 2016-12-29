@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UwpUaf.Asm.Api;
+﻿using UwpUaf.Asm.Api;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
-using Windows.Foundation.Collections;
 
 namespace UwpUaf.Asm.RtC
 {

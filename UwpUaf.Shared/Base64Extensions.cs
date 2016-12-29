@@ -12,7 +12,7 @@ namespace UwpUaf.Shared
             {
                 throw new ArgumentNullException(nameof(obj));
             }
-            
+
             var base64UrlString = Convert.ToBase64String(obj)
                 .TrimEnd('=')
                 .Replace('+', '-')

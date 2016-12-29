@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Storage.Streams;
@@ -9,7 +6,7 @@ using Windows.Storage.Streams;
 namespace UwpUaf.Authenticator
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class UwpUafAuthenticator : IUwpUafAuthenticator
     {
@@ -59,9 +56,9 @@ namespace UwpUaf.Authenticator
             return await KeyCredentialManager.IsSupportedAsync();
         }
 
-        private async Task CheckSupportAsync()
+        async Task CheckSupportAsync()
         {
-            if(!await KeyCredentialManager.IsSupportedAsync())
+            if (!await KeyCredentialManager.IsSupportedAsync())
             {
                 throw new NotSupportedException("Windows Hello is not set up.");
             }

@@ -51,29 +51,36 @@ namespace UwpUaf.Asm.Api
         {
             if (activatedEventArgs.Kind != ActivationKind.ProtocolForResults)
             {
-                //TODO: Unsupported application activation
+                // Unsupported application activation for ASM Request handler
                 return;
             }
 
             var args = activatedEventArgs as ProtocolForResultsActivatedEventArgs;
             if (!args.Uri.Scheme.Equals(Constants.UwpUafAsmOperationProtocolScheme, StringComparison.OrdinalIgnoreCase))
             {
-                //TODO: Unsupported protocol scheme
+                // Unsupported protocol scheme for ASM Request handler
                 return;
             }
 
-            if (!args.Data.ContainsKey(Constants.AsmMessageKey))
+            var asmResponse = new AsmResponseBase();
+            try
             {
-                //TODO: Missing asm message data
-                return;
+                if (!args.Data.ContainsKey(Constants.AsmMessageKey))
+                {
+                    // Missing asm message data
+                    throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
+                }
+
+                var message = (string)args.Data[Constants.AsmMessageKey];
+                // Deserialize ams request from message json string
+                var asmRequest = DeserializeAsmRequestJson(message);
+                // Process asm request
+                asmResponse = await ProcessAsmRequestAsync(asmRequest);
             }
-
-            var message = (string)args.Data[Constants.AsmMessageKey];
-            // Deserialize ams request from message json string
-            var asmRequest = DeserializeAsmRequestJson(message);
-            // Process asm request
-            var asmResponse = await ProcessAsmRequestAsync(asmRequest);
-
+            catch (Exception ex)
+            {
+                asmResponse.StatusCode = ex is UafAsmStatusException ? ((UafAsmStatusException)ex).StatusCode : StatusCode.UafAsmStatusError;
+            }
 
             var result = new ValueSet
             {
@@ -91,10 +98,10 @@ namespace UwpUaf.Asm.Api
                 // Parse message json string as JObject
                 messageObject = JObject.Parse(asmMessageJson);
             }
-            catch (JsonReaderException)
+            catch (JsonReaderException ex)
             {
-                //TODO: malformed message json string
-                throw;
+                // malformed message json string
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError, ex);
             }
 
             Request asmRequestType;
@@ -106,15 +113,16 @@ namespace UwpUaf.Asm.Api
 
                 asmRequestType = messageObject.SelectToken("requestType", true).ToObject<Request>(jsonSerializer);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO: non-existing or malformed requestType property
-                throw;
+                // non-existing or malformed requestType property
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError, ex);
             }
 
             if (!AsmRequestTypeToObjectTypeMap.ContainsKey(asmRequestType))
             {
-                //TODO: unsupported asm request type
+                // unsupported asm request type
+                throw new UafAsmStatusException(StatusCode.UafAsmStatusError);
             }
 
             var asmType = AsmRequestTypeToObjectTypeMap[asmRequestType];

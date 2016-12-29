@@ -19,7 +19,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
     {
         /// <summary>
         /// MATCHER_PROTECTION_SOFTWARE 0x01
-        /// 
+        ///
         /// This flag MUST be set if the authenticator's matcher is running in software.
         /// Exclusive in authenticator metadata with MATCHER_PROTECTION_TEE, MATCHER_PROTECTION_ON_CHIP.
         /// </summary>
@@ -27,7 +27,7 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// MATCHER_PROTECTION_TEE 0x02
-        /// 
+        ///
         /// This flag SHOULD be set if the authenticator's matcher is running inside the Trusted Execution Environment [TEE].
         /// Exclusive in authenticator metadata with MATCHER_PROTECTION_SOFTWARE, MATCHER_PROTECTION_ON_CHIP.
         /// </summary>
@@ -35,9 +35,9 @@ namespace Fido.Uaf.Shared.AuthenticatorCharacteristics
 
         /// <summary>
         /// MATCHER_PROTECTION_ON_CHIP 0x04
-        /// 
+        ///
         /// This flag SHOULD be set if the authenticator's matcher is running on the chip.
-        /// Exclusive in authenticator metadata with MATCHER_PROTECTION_TEE, MATCHER_PROTECTION_SOFTWARE 
+        /// Exclusive in authenticator metadata with MATCHER_PROTECTION_TEE, MATCHER_PROTECTION_SOFTWARE
         /// </summary>
         MatcherProtectionOnChip = 0x04,
     }

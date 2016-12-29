@@ -5,7 +5,7 @@ namespace UwpUaf.Client.Demo
 {
     public class DelegateCommand<T> : ICommand
     {
-        private readonly Action<T> executeAction;
+        readonly Action<T> executeAction;
         Func<T, bool> canExecute;
 
         public event EventHandler CanExecuteChanged;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fido.Uaf.Shared.Messages;
+﻿using Fido.Uaf.Shared.Messages;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
 using UwpUaf.Client.Api;
 

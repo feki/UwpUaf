@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Fido.Uaf.Shared.Messages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -42,7 +38,7 @@ namespace UwpUaf.Client
         /// <param name="message">UAF message of protocol version 1.0</param>
         public void ProcessMessageV10(JObject message)
         {
-            
+
         }
     }
 }

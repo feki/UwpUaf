@@ -1,5 +1,4 @@
-﻿using Fido.Uaf.Shared;
-using Fido.Uaf.Shared.Messages;
+﻿using Fido.Uaf.Shared.Messages;
 using Fido.Uaf.Shared.Utils;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Newtonsoft.Json;

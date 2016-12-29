@@ -11,7 +11,7 @@ namespace UwpUaf.Asm.Shared
     internal static class CredentialsExtentions
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="keyCredential"></param>
         /// <param name="challenge"></param>
@@ -42,7 +42,7 @@ namespace UwpUaf.Asm.Shared
             CheckStatus(keyCredentialOperationResult.Status);
         }
 
-        private static void CheckStatus(KeyCredentialStatus status)
+        static void CheckStatus(KeyCredentialStatus status)
         {
             switch (status)
             {

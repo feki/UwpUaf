@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages.Asm;
 using Fido.Uaf.Shared.Messages.Asm.Objects;
@@ -41,7 +38,7 @@ namespace UwpUaf.Asm.Shared.AsmApi
             }
             catch (Exception ex)
             {
-                response.StatusCode = ex is AsmStatusCodeException ? ((AsmStatusCodeException)ex).StatusCode : StatusCode.UafAsmStatusError;
+                response.StatusCode = ex is UafAsmStatusException ? ((UafAsmStatusException)ex).StatusCode : StatusCode.UafAsmStatusError;
             }
 
             return response;
@@ -56,9 +53,9 @@ namespace UwpUaf.Asm.Shared.AsmApi
                 auth.Frame = frame;
                 response.StatusCode = await auth.DeregisterAsync(asmRequest.Args) ? StatusCode.UafAsmStatusOk : StatusCode.UafAsmStatusError;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                response.StatusCode = StatusCode.UafAsmStatusError;
+                response.StatusCode = ex is UafAsmStatusException ? ((UafAsmStatusException)ex).StatusCode : StatusCode.UafAsmStatusError;
             }
 
             return response;
@@ -82,9 +79,9 @@ namespace UwpUaf.Asm.Shared.AsmApi
                     response.StatusCode = StatusCode.UafAsmStatusError;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                response.StatusCode = StatusCode.UafAsmStatusError;
+                response.StatusCode = ex is UafAsmStatusException ? ((UafAsmStatusException)ex).StatusCode : StatusCode.UafAsmStatusError;
             }
 
             return response;

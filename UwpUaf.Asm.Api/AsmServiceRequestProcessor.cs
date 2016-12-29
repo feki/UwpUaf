@@ -9,7 +9,7 @@ namespace UwpUaf.Asm.Api
 {
     public class AsmServiceRequestProcessor
     {
-        private readonly IAsmServiceRequestHandlers handlers;
+        readonly IAsmServiceRequestHandlers handlers;
 
         public AsmServiceRequestProcessor(IAsmServiceRequestHandlers handlers)
         {
@@ -46,7 +46,7 @@ namespace UwpUaf.Asm.Api
             var status = await args.Request.SendResponseAsync(result);
         }
 
-        private static AsmResponseBase CreateErrorAsmResponse()
+        static AsmResponseBase CreateErrorAsmResponse()
         {
             return new AsmResponseBase
             {

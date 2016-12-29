@@ -7,7 +7,7 @@ namespace UwpUaf.Client.Tests
     [TestClass]
     public class UafClientUtilsUnitTest
     {
-        private UafClientUtils uafClientUtils;
+        UafClientUtils uafClientUtils;
 
         [TestInitialize]
         public void Initialize()

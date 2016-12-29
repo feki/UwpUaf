@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Fido.Uaf.Shared.Messages;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace UwpUaf.Client.Api
 {
     public static class UafMessageUtils
     {
-        private static readonly IDictionary<Operation, Type> opToRequestType = new Dictionary<Operation, Type>
+        static readonly IDictionary<Operation, Type> opToRequestType = new Dictionary<Operation, Type>
         {
             { Operation.Reg, typeof(RegistrationRequest) },
             { Operation.Auth, typeof(AuthenticationRequest) },

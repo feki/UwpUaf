@@ -6,12 +6,12 @@ using Windows.Storage.Streams;
 namespace UwpUaf.Authenticator
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     internal static class CredentialsExtentions
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="keyCredential"></param>
         /// <param name="challenge"></param>
@@ -25,7 +25,7 @@ namespace UwpUaf.Authenticator
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="keyCredentialRetrievalResult"></param>
         public static void CheckStatus(this KeyCredentialRetrievalResult keyCredentialRetrievalResult)
@@ -34,7 +34,7 @@ namespace UwpUaf.Authenticator
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="keyCredentialOperationResult"></param>
         public static void CheckStatus(this KeyCredentialOperationResult keyCredentialOperationResult)
@@ -42,7 +42,7 @@ namespace UwpUaf.Authenticator
             CheckStatus(keyCredentialOperationResult.Status);
         }
 
-        private static void CheckStatus(KeyCredentialStatus status)
+        static void CheckStatus(KeyCredentialStatus status)
         {
             switch (status)
             {
