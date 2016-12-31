@@ -23,6 +23,8 @@ namespace UwpUaf.Asm.Shared.Ui
 
         public DeregisterIn DeregisterIn { get; private set; }
 
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

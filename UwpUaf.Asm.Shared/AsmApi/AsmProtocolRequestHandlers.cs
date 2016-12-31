@@ -9,8 +9,8 @@ namespace UwpUaf.Asm.Shared.AsmApi
 {
     public class AsmProtocolRequestHandlers : IAsmProtocolRequestHandlers
     {
-        readonly Frame frame;
         readonly IAuthenticatorFactory authenticatorFactory;
+        readonly Frame frame;
 
         public AsmProtocolRequestHandlers(IAuthenticatorFactory authenticator, Frame frame)
         {

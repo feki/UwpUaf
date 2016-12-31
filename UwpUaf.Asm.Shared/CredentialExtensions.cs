@@ -10,19 +10,6 @@ namespace UwpUaf.Asm.Shared
     /// </summary>
     internal static class CredentialsExtentions
     {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="keyCredential"></param>
-        /// <param name="challenge"></param>
-        /// <returns></returns>
-        public static async Task<IBuffer> SignAsync(this KeyCredential keyCredential, IBuffer challenge)
-        {
-            var keyCredentialOperationResult = await keyCredential.RequestSignAsync(challenge);
-            keyCredentialOperationResult.CheckStatus();
-
-            return keyCredentialOperationResult.Result;
-        }
 
         /// <summary>
         ///
@@ -40,6 +27,19 @@ namespace UwpUaf.Asm.Shared
         public static void CheckStatus(this KeyCredentialOperationResult keyCredentialOperationResult)
         {
             CheckStatus(keyCredentialOperationResult.Status);
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="keyCredential"></param>
+        /// <param name="challenge"></param>
+        /// <returns></returns>
+        public static async Task<IBuffer> SignAsync(this KeyCredential keyCredential, IBuffer challenge)
+        {
+            var keyCredentialOperationResult = await keyCredential.RequestSignAsync(challenge);
+            keyCredentialOperationResult.CheckStatus();
+
+            return keyCredentialOperationResult.Result;
         }
 
         static void CheckStatus(KeyCredentialStatus status)

@@ -5,10 +5,8 @@ namespace UwpUaf.Client.Demo
 {
     public class DelegateCommand<T> : ICommand
     {
-        readonly Action<T> executeAction;
         Func<T, bool> canExecute;
-
-        public event EventHandler CanExecuteChanged;
+        readonly Action<T> executeAction;
 
         public DelegateCommand(Action<T> executeAction)
             : this(executeAction, null)
@@ -20,6 +18,8 @@ namespace UwpUaf.Client.Demo
             this.executeAction = executeAction;
             this.canExecute = canExecute;
         }
+
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {

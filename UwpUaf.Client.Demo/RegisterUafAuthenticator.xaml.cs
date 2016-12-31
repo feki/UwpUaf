@@ -32,6 +32,8 @@ namespace UwpUaf.Client.Demo
             }
         }
 
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

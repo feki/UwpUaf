@@ -4,10 +4,10 @@ namespace UwpUaf.Asm.Shared.Ui
 {
     class RegistrationConfirmationParameter
     {
-        public RegisterIn RegisterIn { get; set; }
 
         public AuthenticatorInfo AuthenticatorInfo { get; set; }
 
         public IOnConfirmationHandler ConfirmationHandler { get; set; }
+        public RegisterIn RegisterIn { get; set; }
     }
 }

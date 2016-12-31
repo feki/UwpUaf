@@ -17,10 +17,8 @@ namespace UwpUaf.Demo
     /// </summary>
     public sealed partial class WindowsHelloSignatureTest : Page
     {
-        IUwpUafAuthenticator uwpUafAuthenticator;
         string shareText = "";
-
-        bool IsSupported { get; set; }
+        IUwpUafAuthenticator uwpUafAuthenticator;
 
         public WindowsHelloSignatureTest()
         {
@@ -30,6 +28,23 @@ namespace UwpUaf.Demo
 
             var dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+        }
+
+        bool IsSupported { get; set; }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            IsSupported = await uwpUafAuthenticator.IsSupportedAsync();
+            DataContext = this;
+            base.OnNavigatedTo(e);
+        }
+
+        void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            request.Data.Properties.Title = "Share Text Example";
+            request.Data.Properties.Description = "An example of how to share text.";
+            request.Data.SetData(StandardDataFormats.Text, shareText);
         }
 
         async void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -87,14 +102,6 @@ namespace UwpUaf.Demo
             //VerifySignature();
         }
 
-        void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
-        {
-            var request = args.Request;
-            request.Data.Properties.Title = "Share Text Example";
-            request.Data.Properties.Description = "An example of how to share text.";
-            request.Data.SetData(StandardDataFormats.Text, shareText);
-        }
-
         void UnregisterButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -107,13 +114,6 @@ namespace UwpUaf.Demo
             {
                 UnregisterResult.Text = false.ToString();
             }
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            IsSupported = await uwpUafAuthenticator.IsSupportedAsync();
-            DataContext = this;
-            base.OnNavigatedTo(e);
         }
     }
 }

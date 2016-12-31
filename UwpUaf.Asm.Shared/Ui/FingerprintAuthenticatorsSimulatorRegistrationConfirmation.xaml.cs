@@ -6,9 +6,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UwpUaf.Asm.Shared.Ui
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class FingerprintAuthenticatorSimulatorRegistrationConfirmation : Page, INotifyPropertyChanged
     {
         IOnConfirmationHandler handler;
@@ -23,6 +20,8 @@ namespace UwpUaf.Asm.Shared.Ui
         public event PropertyChangedEventHandler PropertyChanged;
 
         public AuthenticatorInfo AuthenticatorInfo { get; private set; }
+
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
 
         public RegisterIn RegisterIn { get; private set; }
 
@@ -40,6 +39,13 @@ namespace UwpUaf.Asm.Shared.Ui
         }
 
 #pragma warning disable CC0057 // Unused parameters
+        async void Cancel_ClickAsync(object sender, RoutedEventArgs e)
+#pragma warning restore CC0057 // Unused parameters
+        {
+            await handler.OnCancelationAsync();
+        }
+
+#pragma warning disable CC0057 // Unused parameters
         async void Confirm_ClickAsync(object sender, RoutedEventArgs e)
 #pragma warning restore CC0057 // Unused parameters
         {
@@ -47,13 +53,6 @@ namespace UwpUaf.Asm.Shared.Ui
             {
                 await handler.OnConfirmationAsync();
             }
-        }
-
-#pragma warning disable CC0057 // Unused parameters
-        async void Cancel_ClickAsync(object sender, RoutedEventArgs e)
-#pragma warning restore CC0057 // Unused parameters
-        {
-            await handler.OnCancelationAsync();
         }
     }
 }

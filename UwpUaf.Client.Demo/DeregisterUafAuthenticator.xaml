@@ -19,6 +19,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding DisplayName}"></TextBlock>
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}">Deregister authenticator list</TextBlock>
                 <TextBlock Style="{StaticResource BaseTextBlockStyle}">Authenticators in list will be deregistered</TextBlock>
             </StackPanel>

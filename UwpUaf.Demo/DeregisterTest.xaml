@@ -9,7 +9,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel Margin="15,10,10,10">
+            <StackPanel Margin="15,0,10,10">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding DisplayName}"></TextBlock>
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}">Deregistration test</TextBlock>
                 <TextBox Margin="0,10,0,0" IsReadOnly="True" x:Name="DeregisterRequest" TextWrapping="Wrap" Text="{Binding DeregistrationRequestJson}" Header="FIDO UAF registration request message"></TextBox>
                 <Button x:Name="ProcessDeregisterRequest" HorizontalAlignment="Stretch" Click="ProcessDeregisterRequest_ClickAsync" Margin="10">Process deregister request</Button>

@@ -13,14 +13,46 @@ namespace UwpUaf.Asm.Shared.Op.Processor
     public class ReqAssertionBuilder
     {
         readonly IAuthenticator authenticator;
-        readonly IBuffer publicKeyBuffer;
         readonly IBuffer fcParams;
+        readonly IBuffer publicKeyBuffer;
 
         public ReqAssertionBuilder(IAuthenticator authenticator, IBuffer publicKeyBuffer, IBuffer fcParams)
         {
             this.authenticator = authenticator;
             this.publicKeyBuffer = publicKeyBuffer;
             this.fcParams = fcParams;
+        }
+
+        byte[] Aaid => Encoding.ASCII.GetBytes(this.authenticator.Aaid);
+
+        byte[] Counters
+        {
+            get
+            {
+                using (var s = new MemoryStream())
+                {
+                    using (var bw = new BinaryWriter(s))
+                    {
+                        bw.Write(EncodeInt(0));
+                        bw.Write(EncodeInt(1));
+                        bw.Write(EncodeInt(0));
+                        bw.Write(EncodeInt(1));
+                    }
+
+                    return s.ToArray();
+                }
+            }
+        }
+
+        byte[] PubKeyRawBytes
+        {
+            get
+            {
+                byte[] ret;
+                CryptographicBuffer.CopyToByteArray(publicKeyBuffer, out ret);
+
+                return ret;
+            }
         }
 
         public async Task<string> GetAssertionsAsync(TagTypes attestation)
@@ -39,6 +71,73 @@ namespace UwpUaf.Asm.Shared.Op.Processor
                 //return Base64 url save encoded string of s.ToArray()
                 var base64UrlString = s.ToArray().ConvertToBase64UrlString();
                 return base64UrlString;
+            }
+        }
+
+        static byte[] EncodeInt(int id)
+        {
+            var bytes = new byte[2];
+            bytes[0] = (byte)(id & 0x00ff);
+            bytes[1] = (byte)((id & 0xff00) >> 8);
+
+            return bytes;
+        }
+
+        static byte[] GetFcSha256Hash(IBuffer fcp)
+        {
+            var objHash = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256).CreateHash();
+            objHash.Append(fcp);
+            var hashBuffer = objHash.GetValueAndReset();
+            byte[] ret;
+            CryptographicBuffer.CopyToByteArray(hashBuffer, out ret);
+
+            return ret;
+        }
+
+        async Task<byte[]> GetAttestationBasicFullAsync(byte[] signedDataValue)
+        {
+            using (var s = new MemoryStream())
+            {
+                using (var bw = new BinaryWriter(s))
+                {
+                    byte[] value;
+                    int length;
+
+                    bw.Write(EncodeInt((int)TagTypes.TagSignature));
+                    value = await GetSignatureAsync(signedDataValue);
+                    length = value.Length;
+                    bw.Write(EncodeInt(length));
+                    bw.Write(value);
+
+                    bw.Write(EncodeInt((int)TagTypes.TagAttestationCert));
+                    var buffer = authenticator.GetCertificate();
+                    CryptographicBuffer.CopyToByteArray(buffer, out value);
+                    length = value.Length;
+                    bw.Write(EncodeInt(length));
+                    bw.Write(value);
+                }
+
+                return s.ToArray();
+            }
+        }
+
+        async Task<byte[]> GetAttestationBasicSurrogateAsync(byte[] signedDataValue)
+        {
+            using (var s = new MemoryStream())
+            {
+                using (var bw = new BinaryWriter(s))
+                {
+                    byte[] value;
+                    int length;
+
+                    bw.Write(EncodeInt((int)TagTypes.TagSignature));
+                    value = await GetSignatureAsync(signedDataValue);
+                    length = value.Length;
+                    bw.Write(EncodeInt(length));
+                    bw.Write(value);
+                }
+
+                return s.ToArray();
             }
         }
 
@@ -71,6 +170,15 @@ namespace UwpUaf.Asm.Shared.Op.Processor
 
                 return s.ToArray();
             }
+        }
+
+        async Task<byte[]> GetSignatureAsync(byte[] signedDataValue)
+        {
+            var signature = await authenticator.SignAsync(CryptographicBuffer.CreateFromByteArray(signedDataValue));
+            byte[] ret;
+            CryptographicBuffer.CopyToByteArray(signature, out ret);
+
+            return ret;
         }
 
         byte[] GetSignedData()
@@ -136,114 +244,6 @@ namespace UwpUaf.Asm.Shared.Op.Processor
 
                 return s.ToArray();
             }
-        }
-
-        byte[] PubKeyRawBytes
-        {
-            get
-            {
-                byte[] ret;
-                CryptographicBuffer.CopyToByteArray(publicKeyBuffer, out ret);
-
-                return ret;
-            }
-        }
-
-        byte[] Counters
-        {
-            get
-            {
-                using (var s = new MemoryStream())
-                {
-                    using (var bw = new BinaryWriter(s))
-                    {
-                        bw.Write(EncodeInt(0));
-                        bw.Write(EncodeInt(1));
-                        bw.Write(EncodeInt(0));
-                        bw.Write(EncodeInt(1));
-                    }
-
-                    return s.ToArray();
-                }
-            }
-        }
-
-        static byte[] GetFcSha256Hash(IBuffer fcp)
-        {
-            var objHash = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256).CreateHash();
-            objHash.Append(fcp);
-            var hashBuffer = objHash.GetValueAndReset();
-            byte[] ret;
-            CryptographicBuffer.CopyToByteArray(hashBuffer, out ret);
-
-            return ret;
-        }
-
-        byte[] Aaid => Encoding.ASCII.GetBytes(this.authenticator.Aaid);
-
-        async Task<byte[]> GetAttestationBasicFullAsync(byte[] signedDataValue)
-        {
-            using (var s = new MemoryStream())
-            {
-                using (var bw = new BinaryWriter(s))
-                {
-                    byte[] value;
-                    int length;
-
-                    bw.Write(EncodeInt((int)TagTypes.TagSignature));
-                    value = await GetSignatureAsync(signedDataValue);
-                    length = value.Length;
-                    bw.Write(EncodeInt(length));
-                    bw.Write(value);
-
-                    bw.Write(EncodeInt((int)TagTypes.TagAttestationCert));
-                    var buffer = authenticator.GetCertificate();
-                    CryptographicBuffer.CopyToByteArray(buffer, out value);
-                    length = value.Length;
-                    bw.Write(EncodeInt(length));
-                    bw.Write(value);
-                }
-
-                return s.ToArray();
-            }
-        }
-
-        async Task<byte[]> GetAttestationBasicSurrogateAsync(byte[] signedDataValue)
-        {
-            using (var s = new MemoryStream())
-            {
-                using (var bw = new BinaryWriter(s))
-                {
-                    byte[] value;
-                    int length;
-
-                    bw.Write(EncodeInt((int)TagTypes.TagSignature));
-                    value = await GetSignatureAsync(signedDataValue);
-                    length = value.Length;
-                    bw.Write(EncodeInt(length));
-                    bw.Write(value);
-                }
-
-                return s.ToArray();
-            }
-        }
-
-        async Task<byte[]> GetSignatureAsync(byte[] signedDataValue)
-        {
-            var signature = await authenticator.SignAsync(CryptographicBuffer.CreateFromByteArray(signedDataValue));
-            byte[] ret;
-            CryptographicBuffer.CopyToByteArray(signature, out ret);
-
-            return ret;
-        }
-
-        static byte[] EncodeInt(int id)
-        {
-            var bytes = new byte[2];
-            bytes[0] = (byte)(id & 0x00ff);
-            bytes[1] = (byte)((id & 0xff00) >> 8);
-
-            return bytes;
         }
     }
 }

@@ -13,14 +13,17 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Margin="15,10,10,10">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Deregistration confirmation</TextBlock>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding AuthenticatorInfo.Title}"></TextBlock>
-            <TextBlock DataContext="{Binding DeregisterIn}" TextWrapping="Wrap">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Margin="15,10,10,10">
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding DisplayName}"></TextBlock>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}">Deregistration confirmation</TextBlock>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding AuthenticatorInfo.Title}"></TextBlock>
+                    <TextBlock DataContext="{Binding DeregisterIn}" TextWrapping="Wrap">
                 <Run>Application ID: </Run>
                 <Run FontWeight="Bold" Text="{Binding AppId}" />
                 <LineBreak />
@@ -28,24 +31,26 @@
                 <Run FontWeight="Bold" Text="{Binding KeyId}" />
                 <LineBreak />
                 <LineBreak />
-            </TextBlock>
-        </StackPanel>
-        <Grid Grid.Row="1" Margin="15,10,10,10">
-            <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="Cancel" Click="Cancel_ClickAsync">Cancel</Button>
-            <Button Margin="10" HorizontalAlignment="Center" x:Name="Confirm" Click="Confirm_ClickAsync" Padding="2">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Image Grid.Row="0" Height="120" Width="120" Source="{Binding AuthenticatorInfo.Icon, Converter={StaticResource PngDataUrlToImageConverter}}" />
-                            <TextBlock Grid.Row="1" HorizontalAlignment="Center">Confirm</TextBlock>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
+                    </TextBlock>
+                </StackPanel>
+                <Grid Grid.Row="1" Margin="15,10,10,10">
+                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="Cancel" Click="Cancel_ClickAsync">Cancel</Button>
+                    <Button Margin="10" HorizontalAlignment="Center" x:Name="Confirm" Click="Confirm_ClickAsync" Padding="2">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Height="120" Width="120" Source="{Binding AuthenticatorInfo.Icon, Converter={StaticResource PngDataUrlToImageConverter}}" />
+                                    <TextBlock Grid.Row="1" HorizontalAlignment="Center">Confirm</TextBlock>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

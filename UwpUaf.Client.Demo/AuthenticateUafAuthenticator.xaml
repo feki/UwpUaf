@@ -18,7 +18,10 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Select authenticator</TextBlock>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">
+                <Run Text="{Binding DisplayName}"></Run><LineBreak />
+                <Run>Select authenticator</Run>
+            </TextBlock>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

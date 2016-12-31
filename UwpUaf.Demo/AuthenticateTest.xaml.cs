@@ -29,6 +29,8 @@ namespace UwpUaf.Demo
 
         public string AuthenticationResponseJson { get; set; }
 
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
         IClientApi ClientApi { get; set; }
 
 #pragma warning disable CC0057 // Unused parameters

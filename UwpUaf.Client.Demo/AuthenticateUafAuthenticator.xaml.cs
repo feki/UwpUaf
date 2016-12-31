@@ -24,6 +24,8 @@ namespace UwpUaf.Client.Demo
             DataContext = this;
         }
 
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
         public ObservableCollection<AuthenticatorInfo> RegisteredAuthenticators
         {
             get

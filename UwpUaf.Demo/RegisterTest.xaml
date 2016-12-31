@@ -9,7 +9,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel Margin="15,10,10,10">
+            <StackPanel Margin="15,0,10,10">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding DisplayName}"></TextBlock>
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}">Registration test</TextBlock>
                 <TextBox Margin="0,10,0,0" IsReadOnly="True" x:Name="RegisterRequest" TextWrapping="Wrap" Text="{Binding RegistrationRequestJson}" Header="FIDO UAF registration request message"></TextBox>
                 <Button x:Name="ProcessRegisterRequest" HorizontalAlignment="Stretch" Click="ProcessRegisterRequest_ClickAsync" Margin="10">Process register request</Button>

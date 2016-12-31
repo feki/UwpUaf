@@ -26,6 +26,8 @@ namespace UwpUaf.Client.Demo
 
         public ObservableCollection<AuthenticatorInfo> DeregisterAuthenticators { get; set; } = new ObservableCollection<AuthenticatorInfo>();
 
+        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
+
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
